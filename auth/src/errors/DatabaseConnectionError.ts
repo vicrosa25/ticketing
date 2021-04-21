@@ -1,6 +1,6 @@
-import { CustomErrors } from "./CustomErrors";
+import { CustomError } from "./CustomError";
 
-export class DatabaseConnectionError extends CustomErrors {
+export class DatabaseConnectionError extends CustomError {
   // Properties
   statusCode = 500;
   reason = "Error connecting to database";

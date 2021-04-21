@@ -1,6 +1,6 @@
-import { CustomErrors } from "./CustomErrors";
+import { CustomError } from "./CustomError";
 
-export class NotFoundError extends CustomErrors {
+export class NotFoundError extends CustomError {
   // Properties
   statusCode = 404;
 

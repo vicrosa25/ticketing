@@ -1,7 +1,7 @@
 import { ValidationError } from "express-validator";
-import { CustomErrors } from "./CustomErrors";
+import { CustomError } from "./CustomError";
 
-export class RequestValidationError extends CustomErrors {
+export class RequestValidationError extends CustomError {
   // Properties
   statusCode = 400;
 

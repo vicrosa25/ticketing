@@ -3,7 +3,7 @@ import "express-async-errors";
 import { json } from "body-parser";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-//import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
@@ -13,7 +13,16 @@ import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/NotFoundError";
 
 const app = express();
+app.set("trust proxy", true);
+
+// Middlewares
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 // Routes
 app.use(currentUserRouter);
@@ -26,11 +35,16 @@ app.all("/*", async () => {
   throw new NotFoundError();
 });
 
-// Middlewares
+// Custom Middlewares
 app.use(errorHandler);
 
 // Start the Server and the Mongo Database
 const start = async () => {
+  // Check environment variables
+  if (!process.env.JWT_KEY) {
+    throw new Error("JWT_KEY must be defined");
+  }
+
   try {
     // await mongoose.connect("mongodb://auth-mongo-srv:27017/auth", {
     //   useNewUrlParser: true,

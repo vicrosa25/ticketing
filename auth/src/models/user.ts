@@ -7,6 +7,7 @@ import {
   BeforeUpdate,
   AfterLoad,
 } from "typeorm";
+import { Exclude, classToPlain } from "class-transformer";
 import { Password } from "../helpers/Password";
 
 @Entity()
@@ -17,9 +18,15 @@ export class User extends BaseEntity {
   @Column()
   email: string;
 
+  @Exclude({ toPlainOnly: true })
   @Column()
   password: string;
 
+  toJSON() {
+    return classToPlain(this);
+  }
+
+  @Exclude()
   private tempPassword: string;
 
   // check if password has changed

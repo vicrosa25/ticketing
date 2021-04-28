@@ -28,7 +28,6 @@ router.post(
     }
 
     // Create and save the user in the database
-    console.log("Creating an user...");
     const newUser = User.create({ email, password });
     const result = await User.save(newUser);
 

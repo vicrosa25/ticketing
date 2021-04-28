@@ -1,6 +1,16 @@
 import { User } from "./../models/user";
-import { newDb, IBackup } from "pg-mem";
+import { newDb } from "pg-mem";
 import { Connection } from "typeorm";
+import request from "supertest";
+import { app } from "../app";
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      signup(): Promise<string[]>;
+    }
+  }
+}
 
 let db = newDb();
 let backup: any;
@@ -33,3 +43,19 @@ beforeEach(async () => {
 afterAll(async () => {
   orm.close();
 });
+
+global.signup = async () => {
+  const email = "test@test.com";
+  const password = "password";
+
+  const response = await request(app)
+    .post("/api/users/signup")
+    .send({
+      email,
+      password,
+    })
+    .expect(201);
+
+  const cookie = response.get("Set-Cookie");
+  return cookie;
+};

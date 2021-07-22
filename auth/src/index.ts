@@ -4,6 +4,8 @@ import { app } from "./app";
 
 // Start the Server and the Mongo Database
 const start = async () => {
+  console.log("starting...");
+
   // Check environment variables
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must be defined");

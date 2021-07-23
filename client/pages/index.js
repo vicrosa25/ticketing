@@ -9,6 +9,7 @@ const LandingPage = ({ currentUser }) => {
 };
 
 export async function getServerSideProps({ req }) {
+  console.log("Landing Page");
   const { data } = await axios.get(
     "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
     {

@@ -2,22 +2,30 @@ import "bootstrap/dist/css/bootstrap.css";
 import App from "next/app";
 import axios from "axios";
 
+import Header from "../components/header";
+
 class AppComponent extends App {
   static async getInitialProps(appContext) {
     // calls page's `getInitialProps` and fills `appProps.pageProps`
     const appProps = await App.getInitialProps(appContext);
 
-    const { data } = await axios.get(
-      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-      {
-        headers: appContext.ctx.req.headers,
-      }
-    );
-
-    return {
-      ...data,
-      ...appProps,
-    };
+    // Only fetch data in server calls not in the browser
+    if (typeof window === "undefined") {
+      const { data } = await axios.get(
+        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
+        {
+          headers: appContext.ctx.req.headers,
+        }
+      );
+      return {
+        ...data,
+        ...appProps,
+      };
+    } else {
+      return {
+        ...appProps,
+      };
+    }
   }
 
   render() {
@@ -27,7 +35,7 @@ class AppComponent extends App {
     const modifiedPageProps = { ...appProps, currentUser, err };
     return (
       <div id="comp-wrapp">
-        <h1>Header {currentUser.email}</h1>
+        <Header currentUser={currentUser} />
         <Component {...modifiedPageProps} />
       </div>
     );

@@ -1,8 +1,7 @@
 import { body } from "express-validator";
 import express, { Request, Response } from "express";
-import { validateRequest } from "../middlewares/validateRequest";
+import { validateRequest, BadRequestError } from "@tfg-victor-rosa/common";
 import { User } from "../models/user";
-import { BadRequestError } from "../errors/BadRequestError";
 import { Password } from "../helpers/Password";
 import jwt from "jsonwebtoken";
 

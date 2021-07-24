@@ -3,8 +3,7 @@ import { body } from "express-validator";
 import jwt from "jsonwebtoken";
 
 import { User } from "../models/user";
-import { BadRequestError } from "../errors/BadRequestError";
-import { validateRequest } from "../middlewares/validateRequest";
+import { BadRequestError, validateRequest } from "@tfg-victor-rosa/common";
 
 const router = express.Router();
 

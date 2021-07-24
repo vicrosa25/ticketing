@@ -9,8 +9,7 @@ import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
 import { signupRouter } from "./routes/signup";
 import { currentUserRouter } from "./routes/current-user";
-import { errorHandler } from "./middlewares/error-handler";
-import { NotFoundError } from "./errors/NotFoundError";
+import { errorHandler, NotFoundError } from "@tfg-victor-rosa/common";
 
 const app = express();
 app.set("trust proxy", true);

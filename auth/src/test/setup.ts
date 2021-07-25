@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-let db = newDb();
+//let db = newDb();
 let backup: any;
 let orm: Connection;
 

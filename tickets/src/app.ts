@@ -5,11 +5,10 @@ import "reflect-metadata";
 
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@tfg-victor-rosa/common";
+import { createTicketRouter } from "./routes/new";
 
 const app = express();
 app.set("trust proxy", true);
-
-// to force new push
 
 // Middlewares
 app.use(json());
@@ -21,6 +20,7 @@ app.use(
 );
 
 // Routes
+app.use(createTicketRouter);
 
 // Not found route error
 app.all("/*", async () => {

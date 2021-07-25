@@ -1,4 +1,3 @@
-import { User } from "./../models/user";
 import { newDb } from "pg-mem";
 import { Connection } from "typeorm";
 import request from "supertest";
@@ -12,7 +11,7 @@ declare global {
   }
 }
 
-let db = newDb();
+//let db = newDb();
 let backup: any;
 let orm: Connection;
 
@@ -29,7 +28,7 @@ beforeAll(async () => {
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
-    entities: [User],
+    entities: [],
   });
 
   await orm.synchronize();

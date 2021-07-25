@@ -11,8 +11,12 @@ const start = async () => {
     throw new Error("JWT_KEY must be defined");
   }
 
+  if (!process.env.POSTGRE_HOST) {
+    throw new Error("POSTGRE_HOST must be define");
+  }
+
   try {
-    createConnection();
+    await createConnection();
     console.log("Connected to Postgres");
   } catch (error) {
     console.log(error);

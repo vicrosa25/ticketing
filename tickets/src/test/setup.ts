@@ -1,12 +1,11 @@
 import { newDb } from "pg-mem";
 import { Connection } from "typeorm";
-import request from "supertest";
-import { app } from "../app";
+import jwt from "jsonwebtoken";
 
 declare global {
   namespace NodeJS {
     interface Global {
-      signup(): Promise<string[]>;
+      signin(): string[];
     }
   }
 }
@@ -43,18 +42,25 @@ afterAll(async () => {
   orm.close();
 });
 
-global.signup = async () => {
-  const email = "test@test.com";
-  const password = "password";
+global.signin = () => {
+  // 1. Build a JWT payload. { id, email }
+  const payload = {
+    id: "12341234",
+    email: "test@test.com",
+  };
 
-  const response = await request(app)
-    .post("/api/users/signup")
-    .send({
-      email,
-      password,
-    })
-    .expect(201);
+  // 2. Create the JWT!
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
 
-  const cookie = response.get("Set-Cookie");
-  return cookie;
+  // 3. Build the session object. { jwt: MY_JWT }
+  const session = { jwt: token };
+
+  // 4. Turn that session int JSON
+  const sessionJson = JSON.stringify(session);
+
+  // 5. Take JSON and encode it as basse64
+  const base64 = Buffer.from(sessionJson).toString("base64");
+
+  // 6. Return a string thats the cookie with encode data
+  return [`express:sess=${base64}`];
 };

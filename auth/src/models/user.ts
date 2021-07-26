@@ -15,11 +15,11 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   email: string;
 
   @Exclude({ toPlainOnly: true })
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   toJSON() {

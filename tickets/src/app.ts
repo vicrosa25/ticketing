@@ -9,7 +9,8 @@ import {
   NotFoundError,
   currentUser,
 } from "@tfg-victor-rosa/common";
-import { createTicketRouter } from "./routes/new";
+import { createTicketRouter } from "./routes/createTicket";
+import { showTicketRouter } from "./routes/showTicket";
 
 const app = express();
 app.set("trust proxy", true);
@@ -26,6 +27,7 @@ app.use(currentUser);
 
 // Routes
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 // Not found route error
 app.all("/*", async () => {

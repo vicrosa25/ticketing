@@ -1,6 +1,7 @@
 import { newDb } from "pg-mem";
 import { Connection } from "typeorm";
 import jwt from "jsonwebtoken";
+import { Ticket } from "../models/ticket";
 
 declare global {
   namespace NodeJS {
@@ -27,7 +28,7 @@ beforeAll(async () => {
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
-    entities: [],
+    entities: [Ticket],
   });
 
   await orm.synchronize();
@@ -42,6 +43,7 @@ afterAll(async () => {
   orm.close();
 });
 
+// Fake auth for testing
 global.signin = () => {
   // 1. Build a JWT payload. { id, email }
   const payload = {

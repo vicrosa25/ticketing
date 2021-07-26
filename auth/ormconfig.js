@@ -4,7 +4,7 @@ module.exports = {
   port: 5432,
   username: "test",
   password: "test",
-  database: "test",
+  database: "auth",
   synchronize: true,
   logging: false,
   entities: ["src/models/*.ts"],

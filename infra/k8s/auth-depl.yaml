@@ -17,7 +17,7 @@ spec:
           image: vicrosa25/auth
           env:
             - name: POSTGRE_HOST
-              value: "auth-postgres-srv"
+              value: "auth-srv"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

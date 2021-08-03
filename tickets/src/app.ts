@@ -12,6 +12,7 @@ import {
 import { createTicketRouter } from "./routes/createTicket";
 import { showTicketRouter } from "./routes/showTicket";
 import { showTicketsRouter } from "./routes/showTickets";
+import { updateTicketsRouter } from "./routes/updateTickets";
 
 const app = express();
 app.set("trust proxy", true);
@@ -30,6 +31,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(showTicketsRouter);
+app.use(updateTicketsRouter);
 
 // Not found route error
 app.all("/*", async () => {

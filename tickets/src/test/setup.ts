@@ -46,8 +46,9 @@ afterAll(async () => {
 // Fake auth for testing
 global.signin = () => {
   // 1. Build a JWT payload. { id, email }
+  const randomId = Math.floor(Math.random() * 12000) + 1;
   const payload = {
-    id: "12341234",
+    id: randomId,
     email: "test@test.com",
   };
 

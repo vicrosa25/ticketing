@@ -13,7 +13,7 @@ export class Ticket extends BaseEntity {
   price: number;
 
   @Column({ nullable: false })
-  userId: string;
+  userId: number;
 
   toJSON() {
     return classToPlain(this);

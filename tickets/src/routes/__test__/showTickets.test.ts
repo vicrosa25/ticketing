@@ -2,7 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 
 // Helper function
-const createTicket = (title, price) => {
+const createTicket = (title: string, price: number) => {
   return request(app)
     .post("/api/tickets")
     .set("Cookie", global.signin())

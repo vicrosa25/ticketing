@@ -1,0 +1,46 @@
+### User Signup
+POST https://ticketing.dev/api/users/signup
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "password"
+}
+
+### User Signin
+POST https://ticketing.dev/api/users/signin
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "password"
+}
+
+### Get Current user
+GET https://ticketing.dev/api/users/currentuser
+
+
+### Create a new ticket
+POST https://ticketing.dev/api/tickets
+Content-Type: application/json
+
+{
+  "title": "ticket2",
+  "price": 10
+}
+
+### Show a ticket
+GET https://ticketing.dev/api/tickets/1
+
+### Get all tickets
+GET https://ticketing.dev/api/tickets
+
+
+### Update a ticket
+PUT https://ticketing.dev/api/tickets/1
+Content-Type: application/json
+
+{
+  "title": "Updated ticket",
+  "price": 54
+}

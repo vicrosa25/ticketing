@@ -7,6 +7,8 @@ import {
   NotAuthorizedError,
 } from "@tfg-victor-rosa/common";
 import { Ticket } from "../models/ticket";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
+import { natsWrapper } from "../nat-wrapper";
 
 const router = express.Router();
 
@@ -39,7 +41,15 @@ router.put(
     // 4. Update the ticket
     await ticket.save();
 
-    // 5. Send the updated ticket in the response
+    // 5. Send Message
+    await new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
+
+    // 6 . Send the updated ticket in the response
     res.send(ticket);
   }
 );

@@ -11,11 +11,14 @@ declare global {
   }
 }
 
+jest.mock("../nat-wrapper.ts");
+
 //let db = newDb();
 let backup: any;
 let orm: Connection;
 
 beforeAll(async () => {
+  jest.clearAllMocks();
   //==== create environment variables
   process.env.JWT_KEY = "asdfasdfa";
 

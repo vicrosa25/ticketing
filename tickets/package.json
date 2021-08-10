@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@tfg-victor-rosa/common": "^1.0.6",
+    "@types/node": "15.12.2",
     "class-transformer": "^0.4.0",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
@@ -25,6 +26,7 @@
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
+    "node-nats-streaming": "^0.3.2",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "0.2.29"

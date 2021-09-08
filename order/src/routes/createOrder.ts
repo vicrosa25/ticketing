@@ -23,12 +23,12 @@ router.post(
     const ticket = await Ticket.findOne(ticketId);
 
     if (!ticket) {
-      console.log("from notfound");
       throw new NotFoundError();
     }
+
     //1.Checking the ticket is not already reserved
     const isReserved = await ticket.isReserved();
-    if (isReserved) {
+    if (isReserved!) {
       throw new BadRequestError("Ticket is allready reserved");
     }
 

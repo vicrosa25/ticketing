@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  getRepository,
+} from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Order, OrderEstatus } from "./order";
 
@@ -21,20 +27,19 @@ export class Ticket extends BaseEntity {
   }
 
   async isReserved() {
-    const existingOrder = await Order.findOne({
-      where: {
-        ticket: {
-          id: this.id,
-        },
-        relations: ["ticket"],
-        status: [
+    const orderRepository = getRepository(Order);
+    const existingOrder = orderRepository
+      .createQueryBuilder()
+      .where("ticketid = :id", { id: this.id })
+      .andWhere("status IN (:...orderStatus)", {
+        orderStatus: [
           OrderEstatus.Created,
           OrderEstatus.AwaitingPayment,
-          OrderEstatus.Complete,
+          OrderEstatus.Cancelled,
         ],
-      },
-    });
+      })
+      .getOne();
 
-    return !!existingOrder;
+    return existingOrder;
   }
 }

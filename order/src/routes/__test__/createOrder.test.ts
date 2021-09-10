@@ -35,4 +35,19 @@ it("returns a 400 error if the ticket is already reserved", async () => {
     .expect(400);
 });
 
-it("reserves a ticket", async () => {});
+it("reserves a ticket", async () => {
+  // Setup
+  const ticket = new Ticket();
+  ticket.title = "concert";
+  ticket.price = 20;
+  await ticket.save();
+
+  // Request, create an order on a free ticket
+  await request(app)
+    .post("/api/order")
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+});
+
+it.todo("emits an order create event");

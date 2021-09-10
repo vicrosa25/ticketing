@@ -40,13 +40,18 @@ router.post(
     const order = new Order();
     order.userId = req.currentUser!.id;
     order.expireAt = expiration;
+    order.ticketid = ticket.id;
     order.ticket = ticket;
-
-    await order.save();
 
     // 4. Publish a create order  event
 
-    res.status(201).send(order);
+    // 5. Saves the order and reponse
+    try {
+      await order.save();
+      res.status(201).send(order);
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 

@@ -4,19 +4,15 @@ import { Order } from "../models/order";
 
 const router = express.Router();
 
-router.get("/api/order", requireAuth, async (req: Request, res: Response) => {
-  try {
-    const orders = await Order.find({
-      where: {
-        userId: req.currentUser!.id,
-      },
-      relations: ["ticket"],
-    });
+router.get("/api/orders", requireAuth, async (req: Request, res: Response) => {
+  const orders = await Order.find({
+    where: {
+      userId: req.currentUser!.id,
+    },
+    relations: ["ticket"],
+  });
 
-    res.send(orders);
-  } catch (error) {
-    console.log(error);
-  }
+  res.send(orders);
 });
 
 export { router as listOrdersRouter };

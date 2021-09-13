@@ -46,12 +46,8 @@ router.post(
     // 4. Publish a create order  event
 
     // 5. Saves the order and reponse
-    try {
-      await order.save();
-      res.status(201).send(order);
-    } catch (error) {
-      console.log(error);
-    }
+    await order.save();
+    res.status(201).send(order);
   }
 );
 

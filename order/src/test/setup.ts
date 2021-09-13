@@ -14,11 +14,7 @@ declare global {
 
 jest.mock("../nat-wrapper.ts");
 
-let db = newDb({
-  // 👉 Recommanded when using Typeorm .synchronize(), which creates foreign keys but not indices !
-  autoCreateForeignKeyIndices: true,
-});
-let backup: IBackup;
+let backup: any;
 let orm: Connection;
 
 beforeAll(async () => {
@@ -26,16 +22,20 @@ beforeAll(async () => {
   //==== create environment variables
   process.env.JWT_KEY = "asdfasdfa";
 
+  //==== create a memory db
+  const db = newDb({
+    // 👉 Recommanded when using Typeorm .synchronize(), which creates foreign keys but not indices !
+    autoCreateForeignKeyIndices: true,
+  });
+
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
     entities: [Order, Ticket],
   });
 
-  if (!backup) {
-    await orm.synchronize();
-    backup = db.backup();
-  }
+  await orm.synchronize();
+  backup = db.backup();
 });
 
 beforeEach(async () => {

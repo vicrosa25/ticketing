@@ -1,5 +1,5 @@
-import { Ticket } from "../../models/ticket";
 import request from "supertest";
+import { Ticket } from "../../models/ticket";
 import { app } from "../../app";
 
 const buildTicket = async () => {
@@ -20,7 +20,7 @@ it("fetches orders from a particular user", async () => {
   const userTwo = global.signin();
 
   // 2. Create one order as User #1
-  request(app)
+  await request(app)
     .post("/api/order")
     .set("Cookie", userOne)
     .send({ ticketId: ticketOne.id })
@@ -41,11 +41,11 @@ it("fetches orders from a particular user", async () => {
 
   //4. Make request to get orders for User #2
   const response = await request(app)
-    .get("/api/order")
+    .get("/api/orders")
     .set("Cookie", userTwo)
     .expect(200);
 
-  // 5. Check we only got orders for user #2
+  // 5. Check we only got orders with ticket for user #2
   expect(response.body.length).toEqual(2);
   expect(response.body[0].id).toEqual(orderOne.id);
   expect(response.body[0].ticket.id).toEqual(ticketTwo.id);

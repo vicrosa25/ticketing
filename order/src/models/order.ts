@@ -8,9 +8,9 @@ import {
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Ticket } from "./ticket";
-import { OrderEstatus } from "@tfg-victor-rosa/common";
+import { OrderStatus } from "@tfg-victor-rosa/common";
 
-export { OrderEstatus };
+export { OrderStatus };
 
 @Entity("order")
 export class Order extends BaseEntity {
@@ -20,8 +20,8 @@ export class Order extends BaseEntity {
   @Column({ nullable: false })
   userId: number;
 
-  @Column({ nullable: false, default: OrderEstatus.Created })
-  status: OrderEstatus;
+  @Column({ nullable: false, default: OrderStatus.Created })
+  status: OrderStatus;
 
   @Column()
   expireAt: Date;

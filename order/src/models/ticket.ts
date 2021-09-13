@@ -6,7 +6,7 @@ import {
   getRepository,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
-import { Order, OrderEstatus } from "./order";
+import { Order, OrderStatus } from "./order";
 
 @Entity("ticket")
 export class Ticket extends BaseEntity {
@@ -33,9 +33,9 @@ export class Ticket extends BaseEntity {
       .where("ticketid = :id", { id: this.id })
       .andWhere("status IN (:...orderStatus)", {
         orderStatus: [
-          OrderEstatus.Created,
-          OrderEstatus.AwaitingPayment,
-          OrderEstatus.Cancelled,
+          OrderStatus.Created,
+          OrderStatus.AwaitingPayment,
+          OrderStatus.Cancelled,
         ],
       })
       .getOne();

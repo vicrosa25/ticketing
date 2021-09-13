@@ -553,10 +553,10 @@
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.2.tgz#9390a8127c0dcba61ebd7fdcc748655e191bdd68"
   integrity sha512-/5O7Fq6Vnv8L6ucmPjaWbVG1XkP4FO+w5glqfkIsq3Xw4oyNAdJddbnYodNDAfjVUvo/rrSCTom4kAND7T1o5Q==
 
-"@tfg-victor-rosa/common@^1.0.6":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.9.tgz#4b3736bd3a13bb9597887f5b9069eb6db49be8df"
-  integrity sha512-gYEBAsUNi8zRcc5vLRysCHgyaxCJJwbeNIlKa8yr/EhmSHGuyH9ihkjzPXZhVQQE6T6kSASRk8UnnLgZNl/PCQ==
+"@tfg-victor-rosa/common@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.12.tgz#bc66ca664edf6828ecfb75c2556912e571664258"
+  integrity sha512-3zIXrxQUv5CCZ2KDZ4Y6HFI4kR2p/Hg/iDljTFxMK0oyHfpSARB+5w6NLJNf8upfrgBxDALlqMeLzJzm2NTvWg==
   dependencies:
     "@types/cookie-session" "^2.0.43"
     "@types/express" "^4.17.13"
@@ -714,9 +714,9 @@
     "@types/node" "*"
 
 "@types/jsonwebtoken@^8.5.4":
-  version "8.5.4"
-  resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.4.tgz#50ccaf0aa6f5d7b9956e70fe323b76e582991913"
-  integrity sha512-4L8msWK31oXwdtC81RmRBAULd0ShnAHjBuKT9MRQpjP0piNrZdXyTRcKY9/UIfhGeKIT4PvF5amOOUbbT/9Wpg==
+  version "8.5.5"
+  resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.5.tgz#da5f2f4baee88f052ef3e4db4c1a0afb46cff22c"
+  integrity sha512-OGqtHQ7N5/Ap/TUwO6IgHDuLiAoTmHhGpNvgkCm/F4N6pKzx/RBSfr2OXZSwC6vkfnsEdb6+7DNZVtiXiwdwFw==
   dependencies:
     "@types/node" "*"
 
@@ -739,9 +739,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "16.4.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.13.tgz#7dfd9c14661edc65cccd43a29eb454174642370d"
-  integrity sha512-bLL69sKtd25w7p1nvg9pigE4gtKVpGTPojBFLMkGHXuUgap2sLqQt2qUnqmVCDfzGUL0DRNZP+1prIZJbMeAXg==
+  version "16.9.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.1.tgz#0611b37db4246c937feef529ddcc018cf8e35708"
+  integrity sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==
 
 "@types/node@15.12.2":
   version "15.12.2"

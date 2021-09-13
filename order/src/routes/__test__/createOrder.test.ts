@@ -1,7 +1,7 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
-import { Order, OrderEstatus } from "../../models/order";
+import { Order, OrderStatus } from "../../models/order";
 
 it("returns a 404 error, if the ticket does not exists", async () => {
   const ticketId = 32;
@@ -23,7 +23,7 @@ it("returns a 400 error if the ticket is already reserved", async () => {
   order.ticket = ticket;
   order.ticketid = ticket.id;
   order.userId = 243;
-  order.status = OrderEstatus.AwaitingPayment;
+  order.status = OrderStatus.AwaitingPayment;
   order.expireAt = new Date();
   await order.save();
 

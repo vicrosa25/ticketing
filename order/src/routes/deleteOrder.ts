@@ -1,7 +1,7 @@
 import {
   NotAuthorizedError,
   NotFoundError,
-  OrderEstatus,
+  OrderStatus,
   requireAuth,
 } from "@tfg-victor-rosa/common";
 import express, { Request, Response } from "express";
@@ -24,7 +24,7 @@ router.delete(
       }
 
       // Change the order status
-      order.status = OrderEstatus.Cancelled;
+      order.status = OrderStatus.Cancelled;
       await order.save();
 
       // Publishing an cancel event

@@ -2,6 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 import { Order, OrderStatus } from "../../models/order";
+import { natsWrapper } from "../../nat-wrapper";
 
 it("returns a 404 error, if the ticket does not exists", async () => {
   const ticketId = 32;
@@ -50,4 +51,19 @@ it("reserves a ticket", async () => {
     .expect(201);
 });
 
-it.todo("emits an order create event");
+it("emits an order create event", async () => {
+  // Setup
+  const ticket = new Ticket();
+  ticket.title = "concert";
+  ticket.price = 20;
+  await ticket.save();
+
+  // Request, create an order on a free ticket
+  await request(app)
+    .post("/api/order")
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});

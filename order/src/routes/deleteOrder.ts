@@ -6,6 +6,8 @@ import {
 } from "@tfg-victor-rosa/common";
 import express, { Request, Response } from "express";
 import { Order } from "../models/order";
+import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
+import { natsWrapper } from "../nat-wrapper";
 
 const router = express.Router();
 
@@ -14,7 +16,10 @@ router.delete(
   requireAuth,
   async (req: Request, res: Response) => {
     try {
-      const order = await Order.findOne(parseInt(req.params.orderId));
+      const order = await Order.findOne(parseInt(req.params.orderId), {
+        relations: ["ticket"],
+      });
+
       if (!order) {
         throw new NotFoundError();
       }
@@ -28,6 +33,12 @@ router.delete(
       await order.save();
 
       // Publishing an cancel event
+      new OrderCancelledPublisher(natsWrapper.client).publish({
+        id: order.id,
+        ticket: {
+          id: order.ticket.id,
+        },
+      });
 
       res.status(204).send(order);
     } catch (error) {

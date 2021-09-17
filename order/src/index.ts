@@ -1,6 +1,8 @@
 import { createConnection } from "typeorm";
 import { app } from "./app";
 import { natsWrapper } from "./nat-wrapper";
+import { TicketCreatedListener } from "./events/listeners/ticket-created-listener";
+import { TicketUpdatededListener } from "./events/listeners/ticket-updated-listener";
 
 // Start the Server and the Mongo Database
 const start = async () => {
@@ -39,6 +41,9 @@ const start = async () => {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatededListener(natsWrapper.client).listen();
 
     await createConnection();
     console.log("Connected to Postgres");

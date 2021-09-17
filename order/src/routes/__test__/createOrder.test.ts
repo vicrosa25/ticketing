@@ -16,6 +16,7 @@ it("returns a 404 error, if the ticket does not exists", async () => {
 it("returns a 400 error if the ticket is already reserved", async () => {
   // Setup
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "Test ticket";
   ticket.price = 12;
   await ticket.save();
@@ -39,6 +40,7 @@ it("returns a 400 error if the ticket is already reserved", async () => {
 it("reserves a ticket", async () => {
   // Setup
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 20;
   await ticket.save();
@@ -54,6 +56,7 @@ it("reserves a ticket", async () => {
 it("emits an order create event", async () => {
   // Setup
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 20;
   await ticket.save();

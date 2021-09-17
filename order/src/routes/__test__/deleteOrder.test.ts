@@ -8,6 +8,7 @@ import { natsWrapper } from "../../nat-wrapper";
 it("Cancels an order", async () => {
   // 1. Create a ticket
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 45;
   await ticket.save();
@@ -36,6 +37,7 @@ it("Cancels an order", async () => {
 it("emits an order cancelled event", async () => {
   // 1. Create a ticket
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 45;
   await ticket.save();

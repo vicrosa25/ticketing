@@ -5,6 +5,7 @@ import { Ticket } from "../../models/ticket";
 it("fetches the order", async () => {
   // 1. Create a ticket
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 43;
   await ticket.save();
@@ -31,6 +32,7 @@ it("fetches the order", async () => {
 it("return 401 error when a user try to see an order from other user", async () => {
   // 1. Create a ticket
   const ticket = new Ticket();
+  ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 43;
   await ticket.save();

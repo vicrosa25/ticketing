@@ -1,16 +1,17 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   BaseEntity,
   getRepository,
+  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Order, OrderStatus } from "./order";
 
 @Entity("ticket")
 export class Ticket extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column({ nullable: false })
@@ -18,9 +19,6 @@ export class Ticket extends BaseEntity {
 
   @Column({ nullable: false })
   price: number;
-
-  @Column({ nullable: false, default: 1 })
-  version: number;
 
   toJSON() {
     return classToPlain(this);

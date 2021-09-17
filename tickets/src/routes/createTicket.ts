@@ -18,10 +18,12 @@ router.post(
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
 
+    const userId = req.currentUser!.id;
+
     const ticket = Ticket.create({
       title,
       price,
-      userId: req.currentUser!.id,
+      userId,
     });
 
     await ticket.save();

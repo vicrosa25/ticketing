@@ -2,8 +2,9 @@ import request from "supertest";
 import { Ticket } from "../../models/ticket";
 import { app } from "../../app";
 
-const buildTicket = async () => {
+const buildTicket = async (id: number) => {
   const ticket = new Ticket();
+  ticket.id = id;
   ticket.title = "Test";
   ticket.price = 34;
   await ticket.save();
@@ -12,9 +13,9 @@ const buildTicket = async () => {
 
 it("fetches orders from a particular user", async () => {
   // 1. Crea three tickets
-  const ticketOne = await buildTicket();
-  const ticketTwo = await buildTicket();
-  const ticketThree = await buildTicket();
+  const ticketOne = await buildTicket(1);
+  const ticketTwo = await buildTicket(2);
+  const ticketThree = await buildTicket(3);
 
   const userOne = global.signin();
   const userTwo = global.signin();

@@ -4,6 +4,7 @@ it("implements optimistic cocurrency control", async () => {
   // 1. create an instance of a ticket
   const ticket = new Ticket();
   ticket.id = 1;
+  ticket.userId = 1;
   ticket.title = "concert";
   ticket.price = 20;
 

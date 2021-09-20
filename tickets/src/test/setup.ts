@@ -15,7 +15,6 @@ jest.mock("../nat-wrapper.ts");
 let db = newDb();
 let backup: any;
 let orm: any;
-const name = "perkins";
 
 beforeAll(async () => {
   jest.clearAllMocks();

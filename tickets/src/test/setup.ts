@@ -1,5 +1,4 @@
 import { newDb } from "pg-mem";
-import { Connection } from "typeorm";
 import jwt from "jsonwebtoken";
 import { Ticket } from "../models/ticket";
 
@@ -13,20 +12,15 @@ declare global {
 
 jest.mock("../nat-wrapper.ts");
 
-//let db = newDb();
+let db = newDb();
 let backup: any;
-let orm: Connection;
+let orm: any;
+const name = "perkins";
 
 beforeAll(async () => {
   jest.clearAllMocks();
   //==== create environment variables
   process.env.JWT_KEY = "asdfasdfa";
-
-  //==== create a memory db
-  const db = newDb({
-    // 👉 Recommanded when using Typeorm .synchronize(), which creates foreign keys but not indices !
-    autoCreateForeignKeyIndices: true,
-  });
 
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({

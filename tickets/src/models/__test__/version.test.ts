@@ -1,6 +1,6 @@
 import { Ticket } from "../ticket";
 
-it("implements optimistic cocurrency control", async () => {
+it("implements optimistic cocurrency control", async (done) => {
   // 1. create an instance of a ticket
   const ticket = new Ticket();
   ticket.id = 1;
@@ -23,5 +23,31 @@ it("implements optimistic cocurrency control", async () => {
   await firstInstance!.save();
 
   // 6. Save the second fetched ticket and expect an error
-  await secondInstance!.save();
+  try {
+    await secondInstance!.save();
+  } catch (error) {
+    return done();
+  }
+
+  throw new Error("Shoul not reach this point");
+});
+
+it("increments the version number on multiples saves", async () => {
+  // 1. create an instance of a ticket
+  const ticket = new Ticket();
+  ticket.id = 1;
+  ticket.userId = 1;
+  ticket.title = "concert";
+  ticket.price = 20;
+
+  await ticket.save();
+  expect(ticket.version).toEqual(1);
+
+  ticket.title = "concert 2";
+  await ticket.save();
+  expect(ticket.version).toEqual(2);
+
+  ticket.title = "concert 3";
+  await ticket.save();
+  expect(ticket.version).toEqual(3);
 });

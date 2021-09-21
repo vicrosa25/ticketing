@@ -1,6 +1,7 @@
 import { newDb } from "pg-mem";
 import jwt from "jsonwebtoken";
 import { Ticket } from "../models/ticket";
+import { OccSubscriber } from "@tfg-victor-rosa/common";
 
 declare global {
   namespace NodeJS {
@@ -25,6 +26,7 @@ beforeAll(async () => {
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
     entities: [Ticket],
+    subscribers: [OccSubscriber],
   });
 
   await orm.synchronize();

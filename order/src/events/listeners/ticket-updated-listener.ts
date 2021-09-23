@@ -13,21 +13,17 @@ export class TicketUpdatededListener extends Listener<TicketUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
-    const { id, title, price } = data;
+    const { id, version, title, price } = data;
 
-    try {
-      const ticket = await Ticket.findOne(id);
-      if (!ticket) {
-        throw new NotFoundError();
-      }
-
-      ticket.title = title;
-      ticket.price = price;
-
-      await ticket.save();
-      msg.ack();
-    } catch (error) {
-      console.log(error);
+    const ticket = await Ticket.findByIdAndPreviusVersion(id, version);
+    if (!ticket) {
+      throw new NotFoundError();
     }
+
+    ticket.title = title;
+    ticket.price = price;
+
+    await ticket.save();
+    msg.ack();
   }
 }

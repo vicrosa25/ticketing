@@ -3,7 +3,7 @@ POST https://ticketing.dev/api/users/signup
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "test2@test.com",
   "password": "password"
 }
 
@@ -25,7 +25,7 @@ POST https://ticketing.dev/api/tickets
 Content-Type: application/json
 
 {
-  "title": "ticket2",
+  "title": "ticket3",
   "price": 10
 }
 
@@ -42,5 +42,5 @@ Content-Type: application/json
 
 {
   "title": "Updated ticket",
-  "price": 54
+  "price": 70
 }

@@ -1,7 +1,7 @@
 import { newDb } from "pg-mem";
 import jwt from "jsonwebtoken";
 import { Ticket } from "../models/ticket";
-import { OccSubscriber } from "@tfg-victor-rosa/common";
+import { OccSubscriber } from "../subscriber/occSubs";
 
 declare global {
   namespace NodeJS {

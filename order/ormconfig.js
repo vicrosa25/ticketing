@@ -1,6 +1,6 @@
 module.exports = {
   type: "postgres",
-  host: "tickets-postgres-srv",
+  host: "order-postgres-srv",
   port: 5432,
   username: "test",
   password: "test",

@@ -558,10 +558,10 @@
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.3.tgz#1185726610acc37317ddab11c3c7f9066966bd20"
   integrity sha512-O3uyB/JbkAEMZaP3YqyHH7TMnex7tWyCbCI4EfJdOCoN6HIhqdJBWTM6aCCiWQ/5f5wxjgU735QAIpJbjDvmzg==
 
-"@tfg-victor-rosa/common@^1.0.21":
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.21.tgz#38adf606be008fdcd4556b217a6f48e4d63b824f"
-  integrity sha512-8MwL8JzRu+UJVpBDI0fpi3GOAoklWd4cEESP4HGmBLHg/M2Ta3CMmOqzze4O+/pZ69vfgw8LJBZFBEBvhOi3dw==
+"@tfg-victor-rosa/common@^1.0.25":
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.25.tgz#08b53c45cd52716453a681ff7aaf21736f78c75b"
+  integrity sha512-bClEMUyvKDF2Ga6om/CCIxI8nDiVk97eVy3RX2ioX2wMwOKvMuBSGXRxKFExk+VJqsY4dN49xiji1AfXrufPAg==
   dependencies:
     "@types/cookie-session" "^2.0.43"
     "@types/express" "^4.17.13"

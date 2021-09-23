@@ -3,8 +3,8 @@ import {
   Column,
   BaseEntity,
   getRepository,
-  PrimaryGeneratedColumn,
   PrimaryColumn,
+  VersionColumn,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Order, OrderStatus } from "./order";
@@ -19,6 +19,9 @@ export class Ticket extends BaseEntity {
 
   @Column({ nullable: false })
   price: number;
+
+  @VersionColumn()
+  version: number;
 
   toJSON() {
     return classToPlain(this);
@@ -37,7 +40,14 @@ export class Ticket extends BaseEntity {
         ],
       })
       .getOne();
-
     return existingOrder;
+  }
+
+  static findByIdAndPreviusVersion(id: number, version: number) {
+    const preVersion = version - 1;
+    return this.createQueryBuilder("ticket")
+      .where("ticket.id = :id", { id })
+      .andWhere("ticket.version = :preVersion", { preVersion })
+      .getOne();
   }
 }

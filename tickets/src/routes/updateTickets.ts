@@ -5,6 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
+  BadRequestError,
 } from "@tfg-victor-rosa/common";
 import { Ticket } from "../models/ticket";
 import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
@@ -28,6 +29,11 @@ router.put(
       throw new NotFoundError();
     }
 
+    // 2. It checkts the ticket is reserved
+    if (ticket.orderId) {
+      throw new BadRequestError("Can not edit a reserved ticket");
+    }
+
     // 2. It checks the user is authorize
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
@@ -48,6 +54,7 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      orderId: ticket.orderId,
     });
 
     // 6 . Send the updated ticket in the response

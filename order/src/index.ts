@@ -42,6 +42,7 @@ const start = async () => {
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
 
+    // Activate Listener
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatededListener(natsWrapper.client).listen();
 

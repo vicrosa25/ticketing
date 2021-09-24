@@ -1,4 +1,5 @@
-import { newDb } from "pg-mem";
+import { newDb, IBackup } from "pg-mem";
+import { Connection } from "typeorm";
 import jwt from "jsonwebtoken";
 import { Ticket } from "../models/ticket";
 import { OccSubscriber } from "../subscriber/occSubs";
@@ -13,7 +14,6 @@ declare global {
 
 jest.mock("../nat-wrapper.ts");
 
-let db = newDb();
 let backup: any;
 let orm: any;
 
@@ -21,6 +21,12 @@ beforeAll(async () => {
   jest.clearAllMocks();
   //==== create environment variables
   process.env.JWT_KEY = "asdfasdfa";
+
+  //==== create a memory db
+  const db = newDb({
+    // 👉 Recommanded when using Typeorm .synchronize(), which creates foreign keys but not indices !
+    autoCreateForeignKeyIndices: true,
+  });
 
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
@@ -34,6 +40,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   backup.restore();
 });
 

@@ -41,6 +41,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   backup.restore();
 });
 

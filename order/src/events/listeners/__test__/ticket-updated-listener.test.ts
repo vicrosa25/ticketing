@@ -21,6 +21,7 @@ const setup = async () => {
     title: "new concert",
     price: 999,
     userId: 1,
+    orderId: null,
   };
 
   // 4. Create a fake msg object

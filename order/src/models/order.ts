@@ -5,6 +5,7 @@ import {
   BaseEntity,
   JoinColumn,
   OneToOne,
+  VersionColumn,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Ticket } from "./ticket";
@@ -25,6 +26,9 @@ export class Order extends BaseEntity {
 
   @Column()
   expireAt: Date;
+
+  @VersionColumn()
+  version: number;
 
   @Column()
   ticketid: number;

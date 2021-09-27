@@ -21,7 +21,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       throw new NotFoundError();
     }
 
-    // 2. Reserv the ticket wit h the orderId
+    // 2. It Reserves the ticket wit the orderId
     ticket.orderId = data.id;
 
     // 3. Save the ticket.

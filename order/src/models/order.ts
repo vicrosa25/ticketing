@@ -13,7 +13,7 @@ import { OrderStatus } from "@tfg-victor-rosa/common";
 
 export { OrderStatus };
 
-@Entity("order")
+@Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -30,14 +30,13 @@ export class Order extends BaseEntity {
   @VersionColumn()
   version: number;
 
-  @Column()
-  ticketid: number;
+  // @Column()
+  // ticketid: number;
 
   @OneToOne(() => Ticket, {
     nullable: false,
-    cascade: true,
   })
-  @JoinColumn()
+  @JoinColumn({ name: "ticketid" })
   ticket: Ticket;
 
   toJSON() {

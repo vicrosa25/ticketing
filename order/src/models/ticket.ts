@@ -9,7 +9,7 @@ import {
 import { classToPlain } from "class-transformer";
 import { Order, OrderStatus } from "./order";
 
-@Entity("ticket")
+@Entity()
 export class Ticket extends BaseEntity {
   @PrimaryColumn()
   id: number;
@@ -45,6 +45,7 @@ export class Ticket extends BaseEntity {
 
   static findByIdAndPreviusVersion(id: number, version: number) {
     const preVersion = version - 1;
+    console.log("Version from the entity", preVersion);
     return this.createQueryBuilder("ticket")
       .where("ticket.id = :id", { id })
       .andWhere("ticket.version = :preVersion", { preVersion })

@@ -42,8 +42,8 @@ router.post(
     const order = new Order();
     order.userId = req.currentUser!.id;
     order.expireAt = expiration;
-    order.ticketid = ticket.id;
     order.ticket = ticket;
+    await order.save();
 
     // 4. Publish a create order  event
     new OrderCreatedPublisher(natsWrapper.client).publish({
@@ -58,8 +58,7 @@ router.post(
       },
     });
 
-    // 5. Saves the order and reponse
-    await order.save();
+    // 5. Send the reponse
     res.status(201).send(order);
   }
 );

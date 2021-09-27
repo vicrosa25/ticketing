@@ -1,7 +1,6 @@
 import { Message } from "node-nats-streaming";
 import {
   Listener,
-  NotFoundError,
   Subjects,
   TicketUpdatedEvent,
 } from "@tfg-victor-rosa/common";
@@ -17,9 +16,8 @@ export class TicketUpdatededListener extends Listener<TicketUpdatedEvent> {
 
     const ticket = await Ticket.findByIdAndPreviusVersion(id, version);
     if (!ticket) {
-      throw new NotFoundError();
+      throw new Error("Ticket not found");
     }
-
     ticket.title = title;
     ticket.price = price;
 

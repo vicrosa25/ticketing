@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ### Show a ticket
-GET https://ticketing.dev/api/tickets/1
+GET https://ticketing.dev/api/tickets/3
 
 ### Get all tickets
 GET https://ticketing.dev/api/tickets
@@ -43,4 +43,13 @@ Content-Type: application/json
 {
   "title": "Updated ticket",
   "price": 70
+}
+
+
+### Create an Order
+POST https://ticketing.dev/api/order
+Content-Type: application/json
+
+{
+  "ticketId": 3
 }

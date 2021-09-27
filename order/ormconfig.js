@@ -7,6 +7,6 @@ module.exports = {
   database: "test",
   synchronize: true,
   logging: false,
-  entities: ["src/models/*.ts"],
+  entities: ["src/models/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
 };

@@ -23,7 +23,6 @@ it("returns a 400 error if the ticket is already reserved", async () => {
 
   const order = new Order();
   order.ticket = ticket;
-  order.ticketid = ticket.id;
   order.userId = 243;
   order.status = OrderStatus.AwaitingPayment;
   order.expireAt = new Date();

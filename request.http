@@ -51,5 +51,5 @@ POST https://ticketing.dev/api/order
 Content-Type: application/json
 
 {
-  "ticketId": 3
+  "ticketId": 1
 }

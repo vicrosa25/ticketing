@@ -13,7 +13,7 @@ import { natsWrapper } from "../nat-wrapper";
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60; // 15 minutos
+const EXPIRATION_WINDOW_SECONDS = 1 * 60; // 15 minutos
 
 router.post(
   "/api/order",

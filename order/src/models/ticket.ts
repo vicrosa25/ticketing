@@ -45,7 +45,6 @@ export class Ticket extends BaseEntity {
 
   static findByIdAndPreviusVersion(id: number, version: number) {
     const preVersion = version - 1;
-    console.log("Version from the entity", preVersion);
     return this.createQueryBuilder("ticket")
       .where("ticket.id = :id", { id })
       .andWhere("ticket.version = :preVersion", { preVersion })

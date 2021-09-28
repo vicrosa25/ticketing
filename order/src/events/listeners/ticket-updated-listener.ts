@@ -12,7 +12,7 @@ export class TicketUpdatededListener extends Listener<TicketUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
-    const { id, version, title, price } = data;
+    const { id, version, title, price, orderId } = data;
 
     const ticket = await Ticket.findByIdAndPreviusVersion(id, version);
     if (!ticket) {
@@ -20,6 +20,7 @@ export class TicketUpdatededListener extends Listener<TicketUpdatedEvent> {
     }
     ticket.title = title;
     ticket.price = price;
+    ticket.orderId = orderId;
 
     await ticket.save();
     msg.ack();

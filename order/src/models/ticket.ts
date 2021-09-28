@@ -23,6 +23,9 @@ export class Ticket extends BaseEntity {
   @VersionColumn()
   version: number;
 
+  @Column({ type: "int", nullable: true })
+  orderId: number | null;
+
   toJSON() {
     return classToPlain(this);
   }

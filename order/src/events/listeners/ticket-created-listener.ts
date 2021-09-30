@@ -17,12 +17,11 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
     ticket.id = id;
     ticket.title = title;
     ticket.price = price;
-
     try {
       await ticket.save();
-      msg.ack();
     } catch (error) {
       console.log(error);
     }
+    msg.ack();
   }
 }

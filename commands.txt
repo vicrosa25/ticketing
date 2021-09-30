@@ -1,3 +1,7 @@
 1. Clean all pods in kubernetes
 
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
+
+2. Delete a pods
+
+kubectl delete node <nodename>

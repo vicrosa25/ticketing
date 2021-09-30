@@ -35,6 +35,7 @@ export class Order extends BaseEntity {
 
   @OneToOne(() => Ticket, {
     nullable: false,
+    cascade: false,
   })
   @JoinColumn({ name: "ticketid" })
   ticket: Ticket;

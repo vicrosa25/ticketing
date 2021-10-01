@@ -2,11 +2,12 @@ import { newDb, IBackup } from "pg-mem";
 import jwt from "jsonwebtoken";
 import { OccSubscriber } from "../subscriber/occSubs";
 import { Order } from "../models/order";
+import { Payment } from "../models/payment";
 
 declare global {
   namespace NodeJS {
     interface Global {
-      signin(): string[];
+      signin(id?: number): string[];
     }
   }
 }
@@ -30,7 +31,7 @@ beforeAll(async () => {
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
-    entities: [Order],
+    entities: [Order, Payment],
     subscribers: [OccSubscriber],
   });
 
@@ -48,11 +49,11 @@ afterAll(async () => {
 });
 
 // Fake auth for testing
-global.signin = () => {
+global.signin = (id?: number) => {
   // 1. Build a JWT payload. { id, email }
   const randomId = Math.floor(Math.random() * 12000) + 1;
   const payload = {
-    id: randomId,
+    id: id || randomId,
     email: "test@test.com",
   };
 

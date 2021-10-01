@@ -28,6 +28,7 @@
     "node-nats-streaming": "^0.3.2",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "stripe": "^8.178.0",
     "typeorm": "0.2.29"
   },
   "scripts": {

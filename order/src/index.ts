@@ -4,6 +4,7 @@ import { natsWrapper } from "./nat-wrapper";
 import { TicketCreatedListener } from "./events/listeners/ticket-created-listener";
 import { TicketUpdatededListener } from "./events/listeners/ticket-updated-listener";
 import { ExpirationCompleteListener } from "./events/listeners/expiration-complete-listener";
+import { PaymenCreatedListener } from "./events/listeners/payment-created-listener";
 
 // Start the Server and the Mongo Database
 const start = async () => {
@@ -47,6 +48,7 @@ const start = async () => {
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatededListener(natsWrapper.client).listen();
     new ExpirationCompleteListener(natsWrapper.client).listen();
+    new PaymenCreatedListener(natsWrapper.client).listen();
 
     await createConnection();
     console.log("Connected to Postgres");

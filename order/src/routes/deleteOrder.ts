@@ -33,7 +33,7 @@ router.delete(
       await order.save();
 
       // Publishing an cancel event
-      new OrderCancelledPublisher(natsWrapper.client).publish({
+      await new OrderCancelledPublisher(natsWrapper.client).publish({
         id: order.id,
         version: order.version,
         ticket: {

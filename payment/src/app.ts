@@ -9,6 +9,7 @@ import {
   NotFoundError,
   currentUser,
 } from "@tfg-victor-rosa/common";
+import { createPaymentRouter } from "./routes/create-payment";
 
 const app = express();
 app.set("trust proxy", true);
@@ -24,6 +25,7 @@ app.use(
 app.use(currentUser);
 
 // Routes
+app.use(createPaymentRouter);
 
 // Not found route error
 app.all("/*", async () => {

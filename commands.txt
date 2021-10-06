@@ -11,3 +11,7 @@ docker rm -vf $(docker ps -a -q)
 3. Delete all docker images
 
 docker rmi -f $(docker images -a -q)
+
+4. Delete a pods
+
+kubectl delete node <nodename>

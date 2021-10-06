@@ -25,7 +25,7 @@ POST https://ticketing.dev/api/tickets
 Content-Type: application/json
 
 {
-  "title": "ticket3",
+  "title": "ticket-test-3",
   "price": 10
 }
 
@@ -51,5 +51,14 @@ POST https://ticketing.dev/api/order
 Content-Type: application/json
 
 {
-  "ticketId": 2
+  "ticketId": 3
+}
+
+### Create a Payment
+POST https://ticketing.dev/api/payment
+Content-Type: application/json
+
+{
+  "orderId": 2,
+  "token": "tok_visa"
 }

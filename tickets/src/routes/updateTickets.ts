@@ -48,7 +48,7 @@ router.put(
     await ticket.save();
 
     // 5. Send Message
-    new TicketUpdatedPublisher(natsWrapper.client).publish({
+    await new TicketUpdatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
       version: ticket.version,
       title: ticket.title,

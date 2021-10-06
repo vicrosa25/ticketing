@@ -1,6 +1,8 @@
 import { createConnection } from "typeorm";
 import { app } from "./app";
 import { natsWrapper } from "./nat-wrapper";
+import { OrderCreatedListener } from "./events/listeners/order-create-listener";
+import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
 
 // Start the Server and the Mongo Database
 const start = async () => {
@@ -41,6 +43,8 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
 
     // Activate Listener
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
 
     await createConnection();
     console.log("Connected to Postgres");

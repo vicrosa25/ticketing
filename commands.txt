@@ -1,3 +1,13 @@
 1. Clean all pods in kubernetes
 
 kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
+
+
+2. Delete all docker containers
+
+docker rm -vf $(docker ps -a -q)
+
+
+3. Delete all docker images
+
+docker rmi -f $(docker images -a -q)

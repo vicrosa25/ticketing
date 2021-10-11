@@ -1,30 +1,30 @@
 Arguments: 
-  /Users/victor/.nvm/versions/node/v16.0.0/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js upgrade @tfg-victor-rosa@^
+  /home/victor/.nvm/versions/node/v14.2.0/bin/node /usr/share/yarn/bin/yarn.js upgrade @tfg-victor-rosa@^
 
 PATH: 
-  /Users/victor/.nvm/versions/node/v16.0.0/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Applications/Postgres.app/Contents/Versions/latest/bin
+  /home/victor/.deno/bin:/home/victor/.nvm/versions/node/v14.2.0/bin:/home/victor/bin:/usr/local/bin:/home/victor/.local/bin:/home/victor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/victor/go/bin:/usr/local/go/bin
 
 Yarn version: 
-  1.22.10
+  1.22.5
 
 Node version: 
-  16.0.0
+  14.2.0
 
 Platform: 
-  darwin x64
+  linux x64
 
 Trace: 
   Error: https://registry.yarnpkg.com/@tfg-victor-rosa: Request "https://registry.yarnpkg.com/@tfg-victor-rosa" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66997:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
-      at Request.emit (node:events:365:28)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141721:10)
-      at Request.emit (node:events:365:28)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141643:12)
-      at Object.onceWrapper (node:events:471:28)
-      at IncomingMessage.emit (node:events:377:35)
-      at endReadableNT (node:internal/streams/readable:1312:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66997:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:140749:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141721:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141643:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1225:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -46,7 +46,7 @@ npm manifest:
       "typescript": "^4.2.4"
     },
     "dependencies": {
-      "@tfg-victor-rosa/common": "^1.0.30",
+      "@tfg-victor-rosa/common": "^1.0.32",
       "@types/node": "15.12.2",
       "class-transformer": "^0.4.0",
       "cookie-session": "^1.4.0",
@@ -638,10 +638,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.3.tgz#1185726610acc37317ddab11c3c7f9066966bd20"
     integrity sha512-O3uyB/JbkAEMZaP3YqyHH7TMnex7tWyCbCI4EfJdOCoN6HIhqdJBWTM6aCCiWQ/5f5wxjgU735QAIpJbjDvmzg==
   
-  "@tfg-victor-rosa/common@^1.0.30":
-    version "1.0.30"
-    resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.30.tgz#5ca1550e32e4cbdda4aad6474119f2b9650916db"
-    integrity sha512-ak3U1MkLF628kbaV04xOIpO15O/YAAob6xrESstmFsKvdyGYvVB/knVoTPJrYNecc9ZWmze/4oUAM+b/DDfZjA==
+  "@tfg-victor-rosa/common@^1.0.32":
+    version "1.0.32"
+    resolved "https://registry.yarnpkg.com/@tfg-victor-rosa/common/-/common-1.0.32.tgz#6aa1a1bea6bd55f18d651aa0f82ef995c2ddb564"
+    integrity sha512-nmmbDP12rsjd/a8ur5IAtMyfXTJQqSd3v/q1vb3EKl2QsgFtze3Q8Tp/eDv6EokNZHQcIXu0sM0N6GmJxDR53g==
     dependencies:
       "@types/cookie-session" "^2.0.43"
       "@types/express" "^4.17.13"

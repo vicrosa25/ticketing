@@ -1,4 +1,4 @@
-#apiVersion: networking.k8s.io/v1
+# apiVersion: networking.k8s.io/v1
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -15,10 +15,6 @@ spec:
             backend:
               serviceName: payment-srv
               servicePort: 3000
-          - path: /api/users/?(.*)
-            backend:
-              serviceName: auth-srv
-              servicePort: 3000
           - path: /api/tickets/?(.*)
             backend:
               serviceName: tickets-srv
@@ -26,6 +22,10 @@ spec:
           - path: /api/order/?(.*)
             backend:
               serviceName: order-srv
+              servicePort: 3000
+          - path: /api/users/?(.*)
+            backend:
+              serviceName: auth-srv
               servicePort: 3000
           - path: /?(.*)
             backend:
@@ -38,8 +38,3 @@ spec:
 #   name: nginx
 # spec:
 #   controller: k8s.io/ingress-nginx
-#   parameters:
-#     kind: IngressParameters
-#     namespace: default
-#     scope: Namespace
-#     name: nginx

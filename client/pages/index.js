@@ -9,15 +9,18 @@ const LandingPage = ({ currentUser }) => {
 };
 
 export async function getServerSideProps({ req }) {
-  console.log("Landing Page");
-  const { data } = await axios.get(
-    "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-    {
-      headers: req.headers,
-    }
-  );
+  // console.log("Landing Page");
+  // const { data } = await axios.get(
+  //   "http://auth-srv:3000/api/users/currentuser",
+  //   {
+  //     headers: req.headers,
+  //   }
+  // );
+  // return {
+  //   props: { data },
+  // };
   return {
-    props: data,
+    props: {},
   };
 }
 

@@ -12,7 +12,7 @@ class AppComponent extends App {
     // Only fetch data in server calls not in the browser
     if (typeof window === "undefined") {
       const { data } = await axios.get(
-        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
+        "http://auth-srv:3000/api/users/currentuser",
         {
           headers: appContext.ctx.req.headers,
         }

@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 export default function Header({ currentUser }) {
-  console.log("From the header", currentUser);
   const links = [
     !currentUser && { label: "Sign up", href: "/auth/signup" },
     !currentUser && { label: "Sign in", href: "/auth/signin" },

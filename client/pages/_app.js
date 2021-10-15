@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps, currentUser }) {
     <div id="comp-wrapp">
       <div className="container">
         <Header currentUser={currentUser} />
-        <Component {...pageProps} />
+        <Component currentUser={currentUser} {...pageProps} />
       </div>
     </div>
   );
@@ -19,12 +19,15 @@ MyApp.getInitialProps = async (appContext) => {
 
   // Fetching data from MyApp
   const { data } = await client.get("/api/users/currentuser");
-  console.log("From App", data);
 
   // Fetching data from the components
   let pageProps = {};
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      client,
+      data.currentUser
+    );
   }
 
   return {

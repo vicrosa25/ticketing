@@ -2,7 +2,8 @@ import { useState } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/use-request";
 
-function NewTicket() {
+function CreateTicket() {
+  // Hooks
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const { doRequest, errors } = useRequest({
@@ -18,6 +19,7 @@ function NewTicket() {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    // Make the request
     doRequest();
   };
 
@@ -62,4 +64,4 @@ function NewTicket() {
   );
 }
 
-export default NewTicket;
+export default CreateTicket;

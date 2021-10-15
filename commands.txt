@@ -15,3 +15,8 @@ docker rmi -f $(docker images -a -q)
 4. Delete a pods
 
 kubectl delete node <nodename>
+
+
+5. Accesing postgres database inside kubernetes
+
+kubectl exec -it <pod-name> -- psql

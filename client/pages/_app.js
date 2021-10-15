@@ -1,45 +1,36 @@
 import "bootstrap/dist/css/bootstrap.css";
-import App from "next/app";
-import axios from "axios";
-
+// import App from "next/app";
+import buildClient from "../helper/build-client";
 import Header from "../components/header";
 
-class AppComponent extends App {
-  static async getInitialProps(appContext) {
-    // calls page's `getInitialProps` and fills `appProps.pageProps`
-    const appProps = await App.getInitialProps(appContext);
-
-    // Only fetch data in server calls not in the browser
-    if (typeof window === "undefined") {
-      const { data } = await axios.get(
-        "http://auth-srv:3000/api/users/currentuser",
-        {
-          headers: appContext.ctx.req.headers,
-        }
-      );
-      return {
-        ...data,
-        ...appProps,
-      };
-    } else {
-      return {
-        ...appProps,
-      };
-    }
-  }
-
-  render() {
-    const { Component, appProps, currentUser } = this.props;
-    // Workaround for https://github.com/zeit/next.js/issues/8592
-    const { err } = this.props;
-    const modifiedPageProps = { ...appProps, currentUser, err };
-    return (
-      <div id="comp-wrapp">
+function MyApp({ Component, pageProps, currentUser }) {
+  return (
+    <div id="comp-wrapp">
+      <div className="container">
         <Header currentUser={currentUser} />
-        <Component {...modifiedPageProps} />
+        <Component {...pageProps} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default AppComponent;
+MyApp.getInitialProps = async (appContext) => {
+  const client = buildClient(appContext.ctx);
+
+  // Fetching data from MyApp
+  const { data } = await client.get("/api/users/currentuser");
+  console.log("From App", data);
+
+  // Fetching data from the components
+  let pageProps = {};
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+
+  return {
+    pageProps,
+    ...data,
+  };
+};
+
+export default MyApp;

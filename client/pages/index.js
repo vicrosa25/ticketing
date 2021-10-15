@@ -1,6 +1,8 @@
-import axios from "axios";
+import buildClient from "../helper/build-client";
 
 const LandingPage = ({ currentUser }) => {
+  console.log("From Landing page", currentUser);
+
   return currentUser ? (
     <h1>Your are signed in</h1>
   ) : (
@@ -8,20 +10,11 @@ const LandingPage = ({ currentUser }) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  // console.log("Landing Page");
-  // const { data } = await axios.get(
-  //   "http://auth-srv:3000/api/users/currentuser",
-  //   {
-  //     headers: req.headers,
-  //   }
-  // );
-  // return {
-  //   props: { data },
-  // };
-  return {
-    props: {},
-  };
-}
+LandingPage.getInitialProps = async (context) => {
+  console.log("Landing page");
+  const client = buildClient(context);
+  const { data } = await client.get("/api/users/currentuser");
+  return data;
+};
 
 export default LandingPage;

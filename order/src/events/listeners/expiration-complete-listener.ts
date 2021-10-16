@@ -15,12 +15,13 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
     // 1. Fetch the order
-    const order = await Order.findOne({
-      where: {
-        id: data.orderId,
-      },
-      relations: ["ticket"],
-    });
+    // const order = await Order.findOne({
+    //   where: {
+    //     id: data.orderId,
+    //   },
+    //   relations: ["ticket"],
+    // });
+    const order = await Order.findOne(data.orderId);
 
     if (!order) {
       throw new Error("Order not found");
@@ -40,7 +41,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
       id: order.id,
       version: order.version,
       ticket: {
-        id: order.ticket.id,
+        id: order.ticketid
       },
     });
 

@@ -26,7 +26,7 @@ it("fetches the order", async () => {
     .expect(200);
 
   expect(fetchedOrder.id).toEqual(order.id);
-  expect(fetchedOrder.ticket.id).toEqual(ticket.id);
+  expect(fetchedOrder.ticketid).toEqual(ticket.id);
 });
 
 it("return 401 error when a user try to see an order from other user", async () => {

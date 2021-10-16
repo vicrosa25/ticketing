@@ -42,7 +42,7 @@ router.post(
     const order = new Order();
     order.userId = req.currentUser!.id;
     order.expireAt = expiration;
-    order.ticket = ticket;
+    order.ticketid = ticket.id;
     await order.save();
 
     // 4. Publish a create order  event

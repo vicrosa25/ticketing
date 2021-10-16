@@ -30,15 +30,15 @@ export class Order extends BaseEntity {
   @VersionColumn()
   version: number;
 
-  // @Column()
-  // ticketid: number;
+  @Column()
+  ticketid: number;
 
-  @OneToOne(() => Ticket, {
-    nullable: false,
-    cascade: false,
-  })
-  @JoinColumn({ name: "ticketid" })
-  ticket: Ticket;
+  // @OneToOne(() => Ticket, {
+  //   nullable: false,
+  //   cascade: false,
+  // })
+  // @JoinColumn({ name: "ticketid" })
+  // ticket: Ticket;
 
   toJSON() {
     return classToPlain(this);

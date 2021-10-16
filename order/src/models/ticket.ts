@@ -39,7 +39,7 @@ export class Ticket extends BaseEntity {
         orderStatus: [
           OrderStatus.Created,
           OrderStatus.AwaitingPayment,
-          OrderStatus.Cancelled,
+          OrderStatus.Complete
         ],
       })
       .getOne();

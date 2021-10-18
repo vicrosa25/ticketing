@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
-import buildClient from "../../helper/build-client";
+import StripeCheckout from "react-stripe-checkout";
+import useRequest from "../../hooks/use-request";
 
-function OrderDetails({ order }) {
+function OrderDetails({ order, price, currentUser }) {
   const [timeLeft, setTimeLeft] = useState(0);
+
+  // Hooks
+  const { doRequest, errors } = useRequest({
+    url: "/api/payment",
+    method: "post",
+    body: {
+      orderId: order.id,
+    },
+    onSuccess: (payment) => console.log(payment),
+  });
 
   useEffect(() => {
     const findTimeLeft = () => {
@@ -25,15 +36,31 @@ function OrderDetails({ order }) {
     return <div>Order Expired</div>;
   }
 
-  return <div>Time left to pay: {timeLeft} seconds</div>;
+  return (
+    <div>
+      Time left to pay: {timeLeft} seconds
+      <StripeCheckout
+        token={({ id }) => doRequest({ token: id })}
+        stripeKey="pk_test_51H3edbCCKwqv3ka1MTcHhRSy1R5MS5ag8GlepEYQUsdJlStjTEkNbT36qKtuZdIkmW0tiS97W6wQF6206olFEClE00grZLtX5C"
+        amount={price * 100}
+        email={currentUser.email}
+      />
+      {errors}
+    </div>
+  );
 }
 
 OrderDetails.getInitialProps = async (context, client) => {
   const { orderId } = context.query;
-  const { data } = await client.get(`/api/order/${orderId}`);
+  const response = await client.get(`/api/order/${orderId}`);
+  const order = response.data;
+
+  const { data } = await client.get(`/api/tickets/${order.ticketid}`);
+  const price = data.price;
 
   return {
-    order: data,
+    order,
+    price,
   };
 };
 

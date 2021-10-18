@@ -15,13 +15,13 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
     // 1. Fetch the order
-    // const order = await Order.findOne({
-    //   where: {
-    //     id: data.orderId,
-    //   },
-    //   relations: ["ticket"],
-    // });
-    const order = await Order.findOne(data.orderId);
+    const order = await Order.findOne({
+      where: {
+        id: data.orderId,
+      },
+      relations: ["ticket"],
+    });
+    // const order = await Order.findOne(data.orderId);
 
     if (!order) {
       throw new Error("Order not found");
@@ -33,15 +33,16 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
     }
 
     // 3. Update and save the order with cancelled status
-    order.status = OrderStatus.Cancelled;
-    await order.save();
+    // order.status = OrderStatus.Cancelled;
+    // await order.save();
+    await Order.delete(order)
 
     // 4. Publish an Order Cancelled Event
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version,
       ticket: {
-        id: order.ticketid
+        id: order.ticket.id
       },
     });
 

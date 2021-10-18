@@ -20,7 +20,7 @@ const setup = async () => {
   order.status = OrderStatus.Created;
   order.userId = 1;
   order.expireAt = new Date();
-  order.ticketid = ticket.id;
+  order.ticket = ticket;
   await order.save();
 
   // 3. Create the fake data

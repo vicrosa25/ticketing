@@ -16,11 +16,11 @@ router.delete(
   requireAuth,
   async (req: Request, res: Response) => {
     try {
-      // const order = await Order.findOne(parseInt(req.params.orderId), {
-      //   relations: ["ticket"],
-      // });
+      const order = await Order.findOne(parseInt(req.params.orderId), {
+        relations: ["ticket"],
+      });
 
-      const order = await Order.findOne(parseInt(req.params.orderId));
+      // const order = await Order.findOne(parseInt(req.params.orderId));
 
       if (!order) {
         throw new NotFoundError();
@@ -39,7 +39,7 @@ router.delete(
         id: order.id,
         version: order.version,
         ticket: {
-          id: order.ticketid,
+          id: order.ticket.id,
         },
       });
 

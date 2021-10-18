@@ -55,12 +55,12 @@ OrderDetails.getInitialProps = async (context, client) => {
   const response = await client.get(`/api/order/${orderId}`);
   const order = response.data;
 
-  const { data } = await client.get(`/api/tickets/${order.ticketid}`);
-  const price = data.price;
+  // const { data } = await client.get(`/api/tickets/${order.ticketid}`);
+  // const price = data.price;
 
   return {
     order,
-    price,
+    // price,
   };
 };
 

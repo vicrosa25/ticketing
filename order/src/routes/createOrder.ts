@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import {
   BadRequestError,
   NotFoundError,
+  OrderStatus,
   requireAuth,
   validateRequest,
 } from "@tfg-victor-rosa/common";
@@ -34,6 +35,7 @@ router.post(
       throw new BadRequestError("Ticket is allready reserved");
     }
 
+
     // 2. Calculate the expiration date of the order
     const expiration = new Date();
     expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
@@ -42,7 +44,8 @@ router.post(
     const order = new Order();
     order.userId = req.currentUser!.id;
     order.expireAt = expiration;
-    order.ticketid = ticket.id;
+    order.status = OrderStatus.AwaitingPayment;
+    order.ticket = ticket;
     await order.save();
 
     // 4. Publish a create order  event

@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToOne,
   VersionColumn,
+  Timestamp,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Ticket } from "./ticket";

@@ -15,7 +15,7 @@ router.get(
     // const [order] = await Order.findByIds([req.params.orderId], {
     //   relations: ["ticket"],
     // });
-    const order = await Order.findOne(req.params.id);
+    const order = await Order.findOne(req.params.orderId);
 
     if (!order) {
       throw new NotFoundError();

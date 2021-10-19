@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import NavStyles from "../components/styles/NavStyles";
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -42,11 +43,9 @@ export default function Header({ currentUser }) {
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
       return (
-        <li key={href}>
-          <Link href={href}>
-            <a>{label}</a>
-          </Link>
-        </li>
+        <Link key={href} href={href}>
+          <a>{label}</a>
+        </Link>
       );
     });
 
@@ -56,20 +55,12 @@ export default function Header({ currentUser }) {
         <Logo>
           <Link href="/">Sick fits</Link>
         </Logo>
+        <NavStyles>{links}</NavStyles>
       </div>
+
       <div className="sub-bar">
         <p>Search</p>
       </div>
-
-      <nav className="navbar navbar-light bg-light">
-        <Link href="/">
-          <a className="navbar-brand">GitTix</a>
-        </Link>
-
-        <div className="d-flex justify-content-end">
-          <ul className="nav d-flex align-items-center">{links}</ul>
-        </div>
-      </nav>
     </HeaderStyles>
   );
 }

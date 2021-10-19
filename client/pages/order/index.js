@@ -1,5 +1,17 @@
 function OrderIndex({ orders }) {
-  return <div>OrderIndex</div>;
+  return (
+    <div>
+      <ul>
+        {orders.map((order) => {
+          return (
+            <li key={order.id}>
+              {order.ticket.title} - {order.ticket.price}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
 
 OrderIndex.getInitialProps = async (context, client) => {

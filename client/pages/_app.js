@@ -1,16 +1,21 @@
-import "bootstrap/dist/css/bootstrap.css";
-// import App from "next/app";
+import NProgress from "nprogress";
+import Router from "next/router";
 import buildClient from "../helper/build-client";
 import Header from "../components/header";
+import Layout from "../components/layout";
+import "../components/styles/nprogress.css";
+
+// NProgress setup
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps, currentUser }) {
   return (
-    <div id="comp-wrapp">
-      <div className="container">
-        <Header currentUser={currentUser} />
-        <Component currentUser={currentUser} {...pageProps} />
-      </div>
-    </div>
+    <Layout>
+      <Header currentUser={currentUser} />
+      <Component currentUser={currentUser} {...pageProps} />
+    </Layout>
   );
 }
 

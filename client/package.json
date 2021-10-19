@@ -4,12 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "bootstrap": "^4.6.0",
-    "next": "^10.2.0",
+    "next": "^10.2.3",
+    "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-stripe-checkout": "^2.6.3"
+    "react-stripe-checkout": "^2.6.3",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.13.3"
   },
   "scripts": {
     "dev": "next"

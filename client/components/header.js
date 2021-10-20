@@ -36,8 +36,8 @@ export default function Header({ currentUser }) {
   const links = [
     !currentUser && { label: "Sign up", href: "/auth/signup" },
     !currentUser && { label: "Sign in", href: "/auth/signin" },
-    currentUser && { label: "Sell Tickets", href: "/ticket/createTicket" },
-    currentUser && { label: "My Orders", href: "/order" },
+    currentUser && { label: "Sell", href: "/ticket/createTicket" },
+    currentUser && { label: "Orders", href: "/order" },
     currentUser && { label: "Sign out", href: "/auth/signout" },
   ]
     .filter((linkConfig) => linkConfig)

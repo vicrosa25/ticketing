@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   VersionColumn,
+  OneToMany,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
+import { Photo } from "./Photo";
 
 @Entity()
 export class Ticket extends BaseEntity {
@@ -23,6 +25,9 @@ export class Ticket extends BaseEntity {
 
   @Column({ type: "int", nullable: true })
   orderId: number | null;
+
+  @OneToMany(() => Photo, photo => photo.ticket, {nullable: true})
+    photos: Photo[];
 
   @VersionColumn()
   version: number;

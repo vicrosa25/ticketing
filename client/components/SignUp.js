@@ -14,7 +14,7 @@ export default function SignIn() {
   const { email, password } = inputs;
 
   const { doRequest, error } = useRequest({
-    url: "/api/users/signin",
+    url: "/api/users/signup",
     method: "post",
     body: {
       email,
@@ -31,7 +31,7 @@ export default function SignIn() {
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign Into Your Account</h2>
+      <h2>SignUp Your Account</h2>
       <DisplayError error={error} />
       <fieldset>
         <label htmlFor="email">

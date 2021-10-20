@@ -13,13 +13,15 @@ export default function CreateProduct() {
     description: "",
   });
 
+  const { image, title, price, description } = inputs;
+
   // Hook to manage request
   const { doRequest, error } = useRequest({
     url: "/api/tickets",
     method: "post",
     body: {
-      title: inputs.title,
-      price: inputs.price,
+      title,
+      price,
     },
     onSuccess: (tikcet) => Router.push("/"),
   });
@@ -27,6 +29,15 @@ export default function CreateProduct() {
   const handleSubmit = (event) => {
     event.preventDefault();
     doRequest();
+  };
+
+  // Fix the price with two digits
+  const onBlur = () => {
+    const value = parseFloat(price);
+    if (isNaN(value)) {
+      return;
+    }
+    inputs.price = value.toFixed(2);
   };
 
   return (
@@ -47,11 +58,12 @@ export default function CreateProduct() {
         <label htmlFor="price">
           Price
           <input
-            type="number"
+            type="text"
             id="price"
             name="price"
             placeholder="price"
             value={inputs.price}
+            onBlur={onBlur}
             onChange={handleChange}
           />
         </label>

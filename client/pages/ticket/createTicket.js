@@ -1,41 +1,44 @@
 import { useState } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/use-request";
+import CreateProduct from "../../components/CreateProduct";
 
 function CreateTicket() {
   // Hooks
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const { doRequest, errors } = useRequest({
-    url: "/api/tickets",
-    method: "post",
-    body: {
-      title,
-      price,
-    },
-    onSuccess: (tikcet) => Router.push("/"),
-  });
+  // const [title, setTitle] = useState("");
+  // const [price, setPrice] = useState("");
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  // const { doRequest, errors } = useRequest({
+  //   url: "/api/tickets",
+  //   method: "post",
+  //   body: {
+  //     title,
+  //     price,
+  //   },
+  //   onSuccess: (tikcet) => Router.push("/"),
+  // });
 
-    // Make the request
-    doRequest();
-  };
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
 
-  const onBlur = () => {
-    const value = parseFloat(price);
+  //   // Make the request
+  //   doRequest();
+  // };
 
-    if (isNaN(value)) {
-      return;
-    }
+  // const onBlur = () => {
+  //   const value = parseFloat(price);
 
-    setPrice(value.toFixed(2));
-  };
+  //   if (isNaN(value)) {
+  //     return;
+  //   }
+
+  //   setPrice(value.toFixed(2));
+  // };
 
   return (
     <div>
-      <h1>Create a Ticket</h1>
+      <CreateProduct />
+      {/* <h1>Create a Ticket</h1>
 
       <form onSubmit={onSubmit}>
         <div className="form-group">
@@ -59,7 +62,7 @@ function CreateTicket() {
         </div>
         {errors}
         <button className="btn btn-primary">Submit</button>
-      </form>
+      </form> */}
     </div>
   );
 }

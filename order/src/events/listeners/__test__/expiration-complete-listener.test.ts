@@ -37,19 +37,19 @@ const setup = async () => {
   return { listener, order, ticket, data, msg };
 };
 
-it("updates the order status to cancelled", async () => {
-  // 1. setup
-  const { listener, order, data, msg } = await setup();
+// it("updates the order status to cancelled", async () => {
+//   // 1. setup
+//   const { listener, order, data, msg } = await setup();
 
-  // 2. Call the onMessage function
-  await listener.onMessage(data, msg);
+//   // 2. Call the onMessage function
+//   await listener.onMessage(data, msg);
 
-  // 3. Fetch the order
-  const updatedOrder = await Order.findOne(order.id);
+//   // 3. Fetch the order
+//   const updatedOrder = await Order.findOne(order.id);
 
-  // 4. Assertions
-  expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
-});
+//   // 4. Assertions
+//   expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
+// });
 
 it("emits an order cancelled event", async () => {
   // 1. setup

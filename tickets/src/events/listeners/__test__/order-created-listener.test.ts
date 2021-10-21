@@ -3,16 +3,25 @@ import { OrderCreatedListener } from "../order-created-listener";
 import { Ticket } from "../../../models/ticket";
 import { OrderCreatedEvent, OrderStatus } from "@tfg-victor-rosa/common";
 import { Message } from "node-nats-streaming";
+import { Photo } from "../../../models/Photo";
 
 const setup = async () => {
   // 1. Create an instance of the listener
   const listener = new OrderCreatedListener(natsWrapper.client);
 
-  // 2. Create and save a ticke
+  // 2. Create and save a ticket
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
   const ticket = new Ticket();
   ticket.title = "concert";
   ticket.price = 99;
+  ticket.description = "description"
   ticket.userId = 1;
+  ticket.photos = images;
   await ticket.save();
 
   // 3. Create a fake data object

@@ -2,6 +2,15 @@ import request from "supertest";
 import { app } from "../../app";
 import { natsWrapper } from "../../nat-wrapper";
 import { Ticket } from "../../models/ticket";
+import { Photo } from "../../models/Photo";
+
+
+const photo = new Photo();
+photo.cloudId = "asdfasd";
+photo.url = "asldkfasldf";
+photo.secureUrl = "sla;ldskfja";
+const images = Array<Photo>();
+images.push(photo);
 
 it("returns a 404 if the provided id does not exists", async () => {
   await request(app)
@@ -10,6 +19,8 @@ it("returns a 404 if the provided id does not exists", async () => {
     .send({
       title: "asdfasd",
       price: 20,
+      description: 'alsdkfjas',
+      images
     })
     .expect(404);
 });
@@ -20,6 +31,8 @@ it("returns a 401 if the user is not authenticated", async () => {
     .send({
       title: "asdfasd",
       price: 20,
+      description: "alsdkfjalsd",
+      images,
     })
     .expect(401);
 });
@@ -31,6 +44,8 @@ it("returns a 401 if the user does not own the ticket", async () => {
     .send({
       title: "asdfasdf",
       price: 20,
+      description: 'alsdkfjas',
+      images
     })
     .expect(201);
 
@@ -40,6 +55,8 @@ it("returns a 401 if the user does not own the ticket", async () => {
     .send({
       title: "newtitle",
       price: 34,
+      description: 'alsdkfjas',
+      images
     })
     .expect(401);
 });
@@ -52,6 +69,8 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     .send({
       title: "asdfasdf",
       price: 20,
+      description: 'alsdkfjas',
+      images
     });
 
   await request(app)
@@ -60,6 +79,8 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     .send({
       title: "",
       price: 34,
+      description: 'alsdkfjas',
+      images
     })
     .expect(400);
 
@@ -69,6 +90,8 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     .send({
       title: "test title",
       price: -10,
+      description: 'alsdkfjas',
+      images
     })
     .expect(400);
 });
@@ -82,6 +105,8 @@ it("returns a 200 if the user provides an valid title or price", async () => {
     .send({
       title: "asdfasdf",
       price: 20,
+      description: 'alsdkfjas',
+      images
     });
 
   await request(app)
@@ -90,6 +115,8 @@ it("returns a 200 if the user provides an valid title or price", async () => {
     .send({
       title: "test title",
       price: 34,
+      description: 'alsdkfjas',
+      images
     })
     .expect(200);
 
@@ -110,6 +137,8 @@ it("publishes an event when updates a ticket", async () => {
     .send({
       title: "asdfasdf",
       price: 20,
+      description: 'alsdkfjas',
+      images
     });
 
   await request(app)
@@ -118,6 +147,8 @@ it("publishes an event when updates a ticket", async () => {
     .send({
       title: "test title",
       price: 34,
+      description: 'alsdkfjas',
+      images
     });
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
@@ -132,6 +163,8 @@ it("rejects updates if the ticket is reserved", async () => {
     .send({
       title: "asdfasdf",
       price: 20,
+      description: 'alsdkfjas',
+      images
     });
 
   const ticket = await Ticket.findOne(response.body.id);

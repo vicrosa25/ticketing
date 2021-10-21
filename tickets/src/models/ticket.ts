@@ -20,6 +20,9 @@ export class Ticket extends BaseEntity {
   @Column({ nullable: false, type: "numeric" })
   price: number;
 
+  @Column()
+  description: string;
+
   @Column({ nullable: false })
   userId: number;
 

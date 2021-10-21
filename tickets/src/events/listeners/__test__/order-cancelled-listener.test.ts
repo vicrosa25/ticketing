@@ -3,17 +3,26 @@ import { OrderCancelledListener } from "../order-cancelled-listener";
 import { Ticket } from "../../../models/ticket";
 import { OrderCancelledEvent } from "@tfg-victor-rosa/common";
 import { Message } from "node-nats-streaming";
+import { Photo } from "../../../models/Photo";
 
 const setup = async () => {
   // 1. Create the listener
   const listener = new OrderCancelledListener(natsWrapper.client);
 
   // 2. Create and save a ticket
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
   const ticket = new Ticket();
   ticket.title = "concert";
   ticket.price = 99;
+  ticket.description = "description"
   ticket.userId = 1;
-  ticket.orderId = 1;
+  ticket.photos = images;
+  await ticket.save();
 
   await ticket.save();
 

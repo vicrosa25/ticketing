@@ -21,13 +21,14 @@ router.post(
   "/api/tickets",
   requireAuth,
   [
-    body("title").notEmpty().withMessage("title is required"),
+    body("title").notEmpty().withMessage("Title is required"),
     body("price").isFloat({ gt: 0 }).withMessage("Price must be grater than 0"),
+    body('description').notEmpty().withMessage("Description is required"),
     body('images').isArray().notEmpty().withMessage("You must upload at least one image")
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price, images } = req.body;
+    const { title, price, description, images } = req.body;
   
 
     const userId = req.currentUser!.id;
@@ -36,9 +37,10 @@ router.post(
     const ticket = new Ticket();
     ticket.title = title;
     ticket.price = price;
+    ticket.description = description;
     ticket.userId = userId;
 
-    // 2. Create and add to the ticket the images
+    // 2. Create and add images
     images.forEach((image: Image) => {
       const photo = new Photo();
       photo.cloudId = image.cloudId;

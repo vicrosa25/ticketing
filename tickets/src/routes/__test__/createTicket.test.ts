@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app } from "../../app";
+import { Photo } from "../../models/Photo";
 import { Ticket } from "../../models/ticket";
 import { natsWrapper } from "../../nat-wrapper";
 
@@ -64,6 +65,15 @@ it("creates a tickets with valid title and price", async () => {
 
   const title = "test title";
   const price = 20;
+  const description = "Description test";
+
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
+
 
   await request(app)
     .post("/api/tickets")
@@ -71,22 +81,36 @@ it("creates a tickets with valid title and price", async () => {
     .send({
       title,
       price,
+      description,
+      images,
     })
     .expect(201);
 
-  tickets = await Ticket.find({});
+  tickets = await Ticket.find({relations: ['photos']});
   expect(tickets.length).toEqual(1);
   expect(tickets[0].title).toEqual(title);
   expect(tickets[0].price).toEqual(price);
+  expect(tickets[0].description).toEqual(description);
+  expect(tickets[0].photos[0].cloudId).toEqual(photo.cloudId);
 });
 
 it("publishes an event when creates a ticket", async () => {
   const title = "test title";
   const price = 20;
+  const description = "Description test";
+  
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
 
   await request(app).post("/api/tickets").set("Cookie", global.signin()).send({
     title,
     price,
+    description,
+    images,
   });
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();

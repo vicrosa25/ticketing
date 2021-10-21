@@ -1,12 +1,21 @@
+import { Photo } from "../Photo";
 import { Ticket } from "../ticket";
 
 it("implements optimistic cocurrency control", async (done) => {
   // 1. create an instance of a ticket
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
   const ticket = new Ticket();
-  ticket.id = 1;
-  ticket.userId = 1;
   ticket.title = "concert";
-  ticket.price = 20;
+  ticket.price = 99;
+  ticket.description = "description"
+  ticket.userId = 1;
+  ticket.photos = images;
+  await ticket.save();
 
   // 2. Save the ticket to the database
   await ticket.save();
@@ -34,11 +43,19 @@ it("implements optimistic cocurrency control", async (done) => {
 
 it("increments the version number on multiples saves", async () => {
   // 1. create an instance of a ticket
+  const photo = new Photo()
+  photo.cloudId = "asdfasd";
+  photo.url = "asldkfasldf";
+  photo.secureUrl = "sla;ldskfja";
+  const images = [];
+  images.push(photo);
   const ticket = new Ticket();
-  ticket.id = 1;
-  ticket.userId = 1;
   ticket.title = "concert";
-  ticket.price = 20;
+  ticket.price = 99;
+  ticket.description = "description"
+  ticket.userId = 1;
+  ticket.photos = images;
+  await ticket.save();
 
   await ticket.save();
   expect(ticket.version).toEqual(1);

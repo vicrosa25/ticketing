@@ -3,17 +3,18 @@ import useRequest from "../hooks/use-request";
 import useForm from "../hooks/useForm";
 import DisplayError from "../components/DisplayError";
 import Form from "./styles/Form";
+import UploaderField from "./images/UploaderField";
+import { useState } from "react";
 
 export default function CreateProduct() {
   // Hook to manage forms
   const { inputs, handleChange } = useForm({
-    image: "",
     title: "",
     price: "",
     description: "",
   });
-
-  const { image, title, price, description } = inputs;
+  const { title, price, description } = inputs;
+  const [images, setImages] = useState([]);
 
   // Hook to manage request
   const { doRequest, error } = useRequest({
@@ -22,6 +23,7 @@ export default function CreateProduct() {
     body: {
       title,
       price,
+      images,
     },
     onSuccess: (tikcet) => Router.push("/"),
   });
@@ -77,9 +79,9 @@ export default function CreateProduct() {
             onChange={handleChange}
           />
         </label>
-        <label htmlFor="image">
-          Image
-          <input type="file" id="image" name="image" onChange={handleChange} />
+        <label htmlFor="images">
+          Images
+          <UploaderField setImages={setImages} />
         </label>
         <button type="submit">+ Add Product</button>
       </fieldset>

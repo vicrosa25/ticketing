@@ -26,11 +26,21 @@ export class Ticket extends BaseEntity {
   @Column({ type: "int", nullable: true })
   orderId: number | null;
 
-  @OneToMany(() => Photo, photo => photo.ticket, {nullable: true})
-    photos: Photo[];
-
   @VersionColumn()
   version: number;
+  
+  
+  @OneToMany(() => Photo, photo => photo.ticket, { cascade: true})
+  photos: Photo[];
+
+  
+  addPhoto(photo: Photo) {
+    if(this.photos === undefined) {
+      this.photos = Array<Photo>();
+    }
+    this.photos.push(photo);
+  }
+
 
   toJSON() {
     return classToPlain(this);

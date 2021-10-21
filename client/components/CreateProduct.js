@@ -23,6 +23,7 @@ export default function CreateProduct() {
     body: {
       title,
       price,
+      description,
       images,
     },
     onSuccess: (tikcet) => Router.push("/"),

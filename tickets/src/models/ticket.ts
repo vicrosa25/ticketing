@@ -41,6 +41,10 @@ export class Ticket extends BaseEntity {
     this.photos.push(photo);
   }
 
+  static getById(id: string) {
+    return Ticket.findOne(id, {relations: ["photos"]})
+  }
+
 
   toJSON() {
     return classToPlain(this);

@@ -1,4 +1,5 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import Header from "./header";
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -21,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 10px;
   }
   *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
   body {
     font-family: 'radnika_next', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -42,11 +43,18 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default function Layout({ children }) {
+const InnerStyles = styled.div`
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  padding: 2rem;
+`;
+
+export default function Layout({ currentUser, children }) {
   return (
     <div>
       <GlobalStyles />
-      {children}
+      <Header currentUser={currentUser} />
+      <InnerStyles>{children}</InnerStyles>
     </div>
   );
 }

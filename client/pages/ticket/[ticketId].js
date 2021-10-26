@@ -1,25 +1,7 @@
-import Router from "next/router";
-import useRequest from "../../hooks/use-request";
+import SingleProduct from "../../components/SingleProduct";
 
 function TicketDetail({ ticket }) {
-  // Hook
-  const { doRequest, errors } = useRequest({
-    url: "/api/order",
-    method: "post",
-    body: {
-      ticketId: ticket.id,
-    },
-    onSuccess: (order) => Router.push("/order/[orderId]", `/order/${order.id}`),
-  });
-
-  return (
-    <div>
-      <h1>{ticket.title}</h1>
-      <h4>Price: {ticket.price}</h4>
-      {errors}
-      <button onClick={() => doRequest()}>Purchase</button>
-    </div>
-  );
+  return <SingleProduct product={ticket} />;
 }
 
 TicketDetail.getInitialProps = async (context, client) => {

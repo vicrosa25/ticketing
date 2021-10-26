@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import NavStyles from "../components/styles/NavStyles";
@@ -6,7 +7,7 @@ const Logo = styled.h1`
   font-size: 4rem;
   margin-left: 2rem;
   position: relative;
-  z-index: 2;
+  z-index: 0;
   background: red;
   transform: skew(-7deg);
   a {
@@ -34,16 +35,18 @@ const HeaderStyles = styled.header`
 
 export default function Header({ currentUser }) {
   const links = [
-    !currentUser && { label: "Sign up", href: "/auth/signup" },
-    !currentUser && { label: "Sign in", href: "/auth/signin" },
+    !currentUser && {
+      label: "Sign in",
+      href: "/auth/signin",
+    },
     currentUser && { label: "Sell", href: "/ticket/createTicket" },
     currentUser && { label: "Orders", href: "/order" },
     currentUser && { label: "Sign out", href: "/auth/signout" },
   ]
     .filter((linkConfig) => linkConfig)
-    .map(({ label, href }) => {
+    .map(({ label, href, showModal }) => {
       return (
-        <Link key={href} href={href}>
+        <Link key={href} href={href} showModal={showModal}>
           <a>{label}</a>
         </Link>
       );

@@ -1,7 +1,6 @@
 import NProgress from "nprogress";
 import Router from "next/router";
 import buildClient from "../helper/build-client";
-import Header from "../components/header";
 import Layout from "../components/layout";
 import "../components/styles/nprogress.css";
 
@@ -12,8 +11,7 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps, currentUser }) {
   return (
-    <Layout>
-      <Header currentUser={currentUser} />
+    <Layout currentUser={currentUser}>
       <Component currentUser={currentUser} {...pageProps} />
     </Layout>
   );

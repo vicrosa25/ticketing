@@ -1,8 +1,10 @@
 import Router from "next/router";
-import Form from "./styles/Form";
+import Link from "next/link";
+import styled from "styled-components";
 import useForm from "../hooks/useForm";
 import useRequest from "../hooks/use-request";
 import DisplayError from "../components/DisplayError";
+import Modal from "../components/Modal";
 
 export default function SignIn() {
   // Hooks
@@ -30,34 +32,74 @@ export default function SignIn() {
   };
 
   return (
-    <Form method="POST" onSubmit={handleSubmit}>
-      <h2>SignUp Your Account</h2>
-      <DisplayError error={error} />
-      <fieldset>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            autoComplete="email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autoComplete="password"
-            value={inputs.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Sign In!</button>
-      </fieldset>
-    </Form>
+    <Modal show={true} onClose={() => Router.push("/")}>
+      <form method="POST" onSubmit={handleSubmit}>
+        <DisplayError error={error} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Your Email Address"
+          autoComplete="email"
+          value={inputs.email}
+          onChange={handleChange}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Password"
+          autoComplete="password"
+          value={inputs.password}
+          onChange={handleChange}
+        />
+        <Button type="submit">Sign In!</Button>
+        <Text>
+          <div>
+            <Span>DO YOU HAVE AN ACCOUNT?</Span>
+          </div>
+          <Link href={"/auth/signin"}>
+            <A>LOG IN</A>
+          </Link>
+        </Text>
+      </form>
+    </Modal>
   );
 }
+
+const Input = styled.input`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #3a3939;
+  padding: 1rem 0.7rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  outline: 0;
+  &:focus {
+    outline: 0;
+    border-color: var(--red);
+  }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  background: red;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 5rem;
+`;
+const Text = styled.div`
+  display: flex;
+  margin: 1rem;
+  justify-content: space-space-between;
+`;
+
+const Span = styled.span`
+  color: #757474;
+  margin-right: 10px;
+`;
+
+const A = styled.a`
+  text-decoration: none;
+  color: #000000;
+`;

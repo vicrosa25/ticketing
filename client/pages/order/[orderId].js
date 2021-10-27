@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import Router from "next/router";
 import AuthContext from "../../contexts/AuthContext";
 import StripeCheckout from "react-stripe-checkout";
 import useRequest from "../../hooks/useRequest";
@@ -16,7 +17,7 @@ function OrderDetails({ order }) {
     body: {
       orderId: order.id,
     },
-    onSuccess: (payment) => console.log(payment),
+    onSuccess: () => Router.push("/order"),
   });
 
   useEffect(() => {

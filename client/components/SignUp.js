@@ -1,10 +1,12 @@
+import { useContext } from "react";
+import AuthContext from "../contexts/AuthContext";
 import Router from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
 import useForm from "../hooks/useForm";
-import useRequest from "../hooks/use-request";
 import DisplayError from "../components/DisplayError";
 import Modal from "../components/Modal";
+import LogingForm from "./styles/LoginForm";
 
 export default function SignIn() {
   // Hooks
@@ -15,27 +17,19 @@ export default function SignIn() {
 
   const { email, password } = inputs;
 
-  const { doRequest, error } = useRequest({
-    url: "/api/users/signup",
-    method: "post",
-    body: {
-      email,
-      password,
-    },
-    onSuccess: () => Router.push("/"),
-  });
+  const { signUp, error } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    doRequest();
+    signUp({ email, password });
     resetForm();
   };
 
   return (
     <Modal show={true} onClose={() => Router.push("/")}>
-      <form method="POST" onSubmit={handleSubmit}>
+      <LogingForm method="POST" onSubmit={handleSubmit}>
         <DisplayError error={error} />
-        <Input
+        <input
           type="email"
           name="email"
           placeholder="Your Email Address"
@@ -43,7 +37,7 @@ export default function SignIn() {
           value={inputs.email}
           onChange={handleChange}
         />
-        <Input
+        <input
           type="password"
           name="password"
           placeholder="Password"
@@ -51,55 +45,22 @@ export default function SignIn() {
           value={inputs.password}
           onChange={handleChange}
         />
-        <Button type="submit">Sign In!</Button>
+        <button type="submit">Sign In!</button>
         <Text>
           <div>
-            <Span>DO YOU HAVE AN ACCOUNT?</Span>
+            <span>DO YOU HAVE AN ACCOUNT?</span>
           </div>
           <Link href={"/auth/signin"}>
-            <A>LOG IN</A>
+            <a>LOG IN</a>
           </Link>
         </Text>
-      </form>
+      </LogingForm>
     </Modal>
   );
 }
 
-const Input = styled.input`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #3a3939;
-  padding: 1rem 0.7rem;
-  margin-bottom: 2rem;
-  width: 100%;
-  outline: 0;
-  &:focus {
-    outline: 0;
-    border-color: var(--red);
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  background: red;
-  color: white;
-  font-size: 2rem;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  margin-bottom: 5rem;
-`;
 const Text = styled.div`
   display: flex;
   margin: 1rem;
   justify-content: space-space-between;
-`;
-
-const Span = styled.span`
-  color: #757474;
-  margin-right: 10px;
-`;
-
-const A = styled.a`
-  text-decoration: none;
-  color: #000000;
 `;

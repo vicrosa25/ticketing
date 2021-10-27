@@ -1,14 +1,15 @@
-import Link from "next/dist/client/link";
+import axios from "axios";
 import Products from "../components/Products";
+import buildClient from "../helper/build-client";
 
-const LandingPage = ({ currentUser, tickets }) => {
-  return <Products products={tickets} />;
-};
+export default function LandingPage({ products }) {
+  return <Products products={products} />;
+}
 
-LandingPage.getInitialProps = async (context, client, currentUser) => {
-  // Fetching all the tickets
+export async function getStaticProps() {
+  const client = buildClient();
   const { data } = await client.get("/api/tickets");
-  return { tickets: data };
-};
-
-export default LandingPage;
+  return {
+    props: { products: data },
+  };
+}

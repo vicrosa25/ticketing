@@ -12,12 +12,6 @@ router.get("/api/orders", requireAuth, async (req: Request, res: Response) => {
     relations: ["ticket"],
   });
 
-  // const orders = await Order.find({
-  //   where: {
-  //     userId: req.currentUser!.id,
-  //   }
-  // });
-
   res.send(orders);
 });
 

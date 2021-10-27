@@ -49,11 +49,11 @@ const InnerStyles = styled.div`
   padding: 2rem;
 `;
 
-export default function Layout({ currentUser, children }) {
+export default function Layout({ children }) {
   return (
     <div>
       <GlobalStyles />
-      <Header currentUser={currentUser} />
+      <Header />
       <InnerStyles>{children}</InnerStyles>
     </div>
   );

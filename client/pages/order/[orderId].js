@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
 import StripeCheckout from "react-stripe-checkout";
-import useRequest from "../../hooks/use-request";
+import useRequest from "../../hooks/useRequest";
+import buildClient from "../../helper/build-client";
 
-function OrderDetails({ order, currentUser }) {
+function OrderDetails({ order }) {
   const [timeLeft, setTimeLeft] = useState(0);
+
+  const { user } = useContext(AuthContext);
 
   // Hooks
   const { doRequest, errors } = useRequest({
@@ -45,15 +49,16 @@ function OrderDetails({ order, currentUser }) {
         token={({ id }) => doRequest({ token: id })}
         stripeKey="pk_test_51H3edbCCKwqv3ka1MTcHhRSy1R5MS5ag8GlepEYQUsdJlStjTEkNbT36qKtuZdIkmW0tiS97W6wQF6206olFEClE00grZLtX5C"
         amount={order.ticket.price * 100}
-        email={currentUser.email}
+        email={user.email}
       />
       {errors}
     </div>
   );
 }
 
-OrderDetails.getInitialProps = async (context, client) => {
+OrderDetails.getInitialProps = async (context) => {
   const { orderId } = context.query;
+  const client = buildClient();
   const { data } = await client.get(`/api/order/${orderId}`);
 
   return {

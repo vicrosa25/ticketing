@@ -1,3 +1,5 @@
+import buildClient from "../../helper/build-client";
+
 function OrderIndex({ orders }) {
   return (
     <div>
@@ -14,11 +16,15 @@ function OrderIndex({ orders }) {
   );
 }
 
-OrderIndex.getInitialProps = async (context, client) => {
-  const { data } = await client.get("/api/orders");
+export async function getServerSideProps({ req }) {
+  const client = buildClient(req);
+  const response = await client.get("/api/orders");
+
   return {
-    orders: data,
+    props: {
+      orders: response.data,
+    },
   };
-};
+}
 
 export default OrderIndex;

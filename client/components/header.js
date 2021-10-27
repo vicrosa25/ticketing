@@ -1,7 +1,45 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import AuthContext from "../contexts/AuthContext";
 import NavStyles from "../components/styles/NavStyles";
+
+export default function Header() {
+  const { user } = useContext(AuthContext);
+
+  const links = [
+    !user && {
+      label: "Sign in",
+      href: "/auth/signin",
+    },
+    user && { label: "Sell", href: "/ticket/createTicket" },
+    user && { label: "Orders", href: "/order" },
+    user && { label: "Sign out", href: "/auth/signout" },
+  ]
+    .filter((linkConfig) => linkConfig)
+    .map(({ label, href }) => {
+      return (
+        <Link key={href} href={href}>
+          <a>{label}</a>
+        </Link>
+      );
+    });
+
+  return (
+    <HeaderStyles>
+      <div className="bar">
+        <Logo>
+          <Link href="/">Sick fits</Link>
+        </Logo>
+        <NavStyles>{links}</NavStyles>
+      </div>
+
+      <div className="sub-bar">
+        <p>Search</p>
+      </div>
+    </HeaderStyles>
+  );
+}
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -32,38 +70,3 @@ const HeaderStyles = styled.header`
     border-bottom: 1px solid var(--black, black);
   }
 `;
-
-export default function Header({ currentUser }) {
-  const links = [
-    !currentUser && {
-      label: "Sign in",
-      href: "/auth/signin",
-    },
-    currentUser && { label: "Sell", href: "/ticket/createTicket" },
-    currentUser && { label: "Orders", href: "/order" },
-    currentUser && { label: "Sign out", href: "/auth/signout" },
-  ]
-    .filter((linkConfig) => linkConfig)
-    .map(({ label, href, showModal }) => {
-      return (
-        <Link key={href} href={href} showModal={showModal}>
-          <a>{label}</a>
-        </Link>
-      );
-    });
-
-  return (
-    <HeaderStyles>
-      <div className="bar">
-        <Logo>
-          <Link href="/">Sick fits</Link>
-        </Logo>
-        <NavStyles>{links}</NavStyles>
-      </div>
-
-      <div className="sub-bar">
-        <p>Search</p>
-      </div>
-    </HeaderStyles>
-  );
-}

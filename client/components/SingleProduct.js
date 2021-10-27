@@ -1,7 +1,7 @@
 import Router from "next/router";
 import styled from "styled-components";
 import Slider from "../components/Slider";
-import useRequest from "../hooks/use-request";
+import useRequest from "../hooks/useRequest";
 
 const ProductStyles = styled.div`
   display: grid;

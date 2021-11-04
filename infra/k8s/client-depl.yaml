@@ -15,6 +15,12 @@ spec:
       containers:
         - name: client
           image: vicrosa25/client
+          env:
+            - name: CHAT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chat-secret
+                  key: CHAT_KEY
 ---
 apiVersion: v1
 kind: Service

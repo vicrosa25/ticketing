@@ -45,7 +45,7 @@ it("changes the order status to cancelled", async () => {
   const order = await Order.findOne(data.id);
 
   // 4. assertion
-  expect(order!.status).toEqual(OrderStatus.Cancelled);
+  expect(order).toBeUndefined();
 });
 
 it("acks the message", async () => {

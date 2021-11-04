@@ -12,6 +12,7 @@ export default function Header() {
       label: "Sign in",
       href: "/auth/signin",
     },
+    user && { label: "Messages", href: "/messages/dashboard" },
     user && { label: "Sell", href: "/ticket/createTicket" },
     user && { label: "Orders", href: "/order" },
     user && { label: "Sign out", href: "/auth/signout" },

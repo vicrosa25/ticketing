@@ -1,0 +1,67 @@
+/* Chat Product */
+
+.ce-chat-title {
+  position: relative !important;
+}
+
+.ce-message-form-container {
+  position: relative !important;
+}
+
+.ce-send-button-container {
+  bottom: 41px !important;
+}
+
+/* Dashboard */
+
+/* Left side */
+.ce-settings {
+  overflow: hidden !important;
+  border: 1px solid rgb(175, 175, 175) !important;
+  font-family: inherit !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Center */
+.ce-chat-title-text {
+  color: black !important;
+}
+
+.ce-chat-subtitle-text {
+  color: black !important;
+}
+
+.ce-chat-feed-container {
+  height: auto !important;
+  overflow: hidden !important;
+  font-family: inherit !important;
+}
+
+/* Right side */
+.ce-chats-container {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+.ce-chat-list {
+  overflow: hidden !important;
+  border: 1px solid rgb(175, 175, 175) !important;
+  font-family: inherit !important;
+}
+
+.ce-primary-button {
+  background-color: red !important;
+}
+.ce-chat-title-container {
+  border-top: 1px solid rgb(175, 175, 175) !important;
+  font-family: inherit !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Input Form */
+.ce-chat-form-container {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+.ce-message-input-form {
+  border-bottom: 1px solid rgb(175, 175, 175) !important;
+  font-family: inherit !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}

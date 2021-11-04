@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-
 import { User } from "../models/user";
 import { BadRequestError, validateRequest } from "@tfg-victor-rosa/common";
+import { createChatUser } from "../helpers/chatUser";
 
 const router = express.Router();
+
+
 
 router.post(
   "/api/users/signup",
@@ -20,15 +22,22 @@ router.post(
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    // Check if the email is already in use
+    // 1. Check if the email is already in use
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw new BadRequestError("Email allready in use");
     }
 
-    // Create and save the user in the database
-    const newUser = User.create({ email, password });
+    // 2. Create and save the user in the database
+    const newUser = new User();
+    newUser.email = email;
+    newUser.password = password;
+    newUser.secret = email;
     const result = await User.save(newUser);
+
+    // 3. Create and save user in chat
+    await createChatUser(email);
+    
 
     // Generate JWT
     const userJwt = jwt.sign(

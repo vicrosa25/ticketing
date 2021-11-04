@@ -8,6 +8,7 @@ import cookieSession from "cookie-session";
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
 import { signupRouter } from "./routes/signup";
+import { getUserRouter } from "./routes/getUser";
 import { currentUserRouter } from "./routes/current-user";
 import { errorHandler, NotFoundError } from "@tfg-victor-rosa/common";
 
@@ -27,6 +28,7 @@ app.use(
 
 // Routes
 app.use(currentUserRouter);
+app.use(getUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);

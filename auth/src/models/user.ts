@@ -22,6 +22,10 @@ export class User extends BaseEntity {
   @Column({ nullable: false })
   password: string;
 
+  @Column({nullable: true})
+  secret: string;
+
+
   toJSON() {
     return classToPlain(this);
   }

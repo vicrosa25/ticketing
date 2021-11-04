@@ -4,6 +4,8 @@ import { Connection } from "typeorm";
 import request from "supertest";
 import { app } from "../app";
 
+jest.mock("../helpers/chatUser.ts");
+
 declare global {
   namespace NodeJS {
     interface Global {
@@ -43,6 +45,7 @@ beforeEach(async () => {
 afterAll(async () => {
   orm.close();
 });
+
 
 global.signup = async () => {
   const email = "test@test.com";

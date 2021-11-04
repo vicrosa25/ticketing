@@ -1,21 +1,25 @@
 import Router from "next/router";
+import { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 import styled from "styled-components";
+import AuthContext from "../contexts/AuthContext";
 import Slider from "../components/Slider";
 import useRequest from "../hooks/useRequest";
-
-const ProductStyles = styled.div`
-  display: grid;
-  /* grid-auto-columns: 1fr; */
-  grid-template-columns: 80% 20%;
-  grid-auto-flow: column;
-  max-width: var(--maxWidth);
-  justify-content: center;
-  align-items: top;
-  gap: 3rem;
-`;
+import ChatProduct from "./ChatProduct";
 
 export default function SingleProduct({ product }) {
-  // Hook
+  // SWR fetching the Seller
+  const { data, error } = useSWR(`/api/users/${product.userId}`);
+
+  // Get the Buyer
+  const { user } = useContext(AuthContext);
+
+  // Hooks
+  const [showChat, setShowChat] = useState(false);
+  const router = useRouter();
+
+  // Custom Hook to make Requests - Create a new order
   const { doRequest, errors } = useRequest({
     url: "/api/order",
     method: "post",
@@ -27,15 +31,61 @@ export default function SingleProduct({ product }) {
 
   const slides = product.photos.map((photo) => photo.secureUrl);
 
+  const handleChat = (e) => {
+    e.preventDefault();
+    if (!user) {
+      router.push("/auth/signin");
+      return;
+    }
+    setShowChat(!showChat);
+  };
+
+  const handlePurchase = (e) => {
+    e.preventDefault();
+    if (!user) {
+      router.push("/auth/signin");
+      return;
+    }
+    doRequest();
+  };
+
+  // Check seller and buyer must be different users
+  let areDifferent = false;
+  if (user && data) {
+    areDifferent = user.email !== data.email;
+  }
+
   return (
     <ProductStyles>
       <Slider slides={slides} />
       <div className="details">
         <h2>{product.title}</h2>
         <p>{product.description}</p>
-        <button onClick={() => doRequest()}>Purchase</button>
+        {areDifferent && (
+          <div>
+            <button onClick={handleChat}>Chat</button>
+            <button onClick={handlePurchase}>Purchase</button>
+          </div>
+        )}
       </div>
+      {showChat && (
+        <ChatProduct seller={data} buyer={user} title={product.title} />
+      )}
+      {error}
       {errors}
     </ProductStyles>
   );
 }
+
+// CSS
+const ProductStyles = styled.div`
+  /* display: flex;
+  flex-direction: column; */
+  /* grid-auto-columns: 1fr; */
+  /* grid-template-columns: 80% 20%;
+  grid-auto-flow: column; */
+  max-width: var(--maxWidth);
+  justify-content: center;
+  align-items: top;
+  gap: 3rem;
+`;

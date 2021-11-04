@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app } from "../../app";
+import { User } from '../../models/user';
 
 it("fails when a email that does not exist is supplied", async () => {
   await request(app)
@@ -12,13 +13,11 @@ it("fails when a email that does not exist is supplied", async () => {
 });
 
 it("fails when an incorrect password is supplied", async () => {
-  await request(app)
-    .post("/api/users/signup")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(201);
+  // 1. Create a user
+  const user = new User();
+  user.email = 'test@test.com';
+  user.password = 'password';
+  await user.save();
 
   await request(app)
     .post("/api/users/signin")
@@ -30,13 +29,11 @@ it("fails when an incorrect password is supplied", async () => {
 });
 
 it("responds with a cookie when given valid credentials", async () => {
-  await request(app)
-    .post("/api/users/signup")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(201);
+  // 1. Create a user
+  const user = new User();
+  user.email = 'test@test.com';
+  user.password = 'password';
+  await user.save();
 
   const response = await request(app)
     .post("/api/users/signin")

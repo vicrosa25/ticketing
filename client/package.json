@@ -15,6 +15,7 @@
     "react-dropzone": "^11.4.2",
     "react-icons": "^4.3.1",
     "react-stripe-checkout": "^2.6.3",
+    "react-toastify": "^8.1.0",
     "styled-components": "^5.3.3",
     "swr": "^1.0.1"
   },

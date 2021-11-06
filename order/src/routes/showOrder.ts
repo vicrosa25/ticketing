@@ -12,10 +12,9 @@ router.get(
   "/api/order/:orderId",
   requireAuth,
   async (req: Request, res: Response) => {
-    const [order] = await Order.findByIds([req.params.orderId], {
-      relations: ["ticket"],
+    const order = await Order.findOne(req.params.orderId, {
+      relations: ["ticket", "ticket.photos"],
     });
-    // const order = await Order.findOne(req.params.orderId);
 
     if (!order) {
       throw new NotFoundError();

@@ -7,6 +7,7 @@ import AuthContext from "../contexts/AuthContext";
 import Slider from "../components/Slider";
 import useRequest from "../hooks/useRequest";
 import ChatProduct from "./ChatProduct";
+import SickButton from "../components/styles/SickButton";
 
 export default function SingleProduct({ product }) {
   // SWR fetching the Seller
@@ -63,8 +64,8 @@ export default function SingleProduct({ product }) {
         <p>{product.description}</p>
         {areDifferent && (
           <div>
-            <button onClick={handleChat}>Chat</button>
-            <button onClick={handlePurchase}>Purchase</button>
+            <SickButton onClick={handleChat}>Chat</SickButton>
+            <SickButton onClick={handlePurchase}>Purchase</SickButton>
           </div>
         )}
       </div>
@@ -79,11 +80,6 @@ export default function SingleProduct({ product }) {
 
 // CSS
 const ProductStyles = styled.div`
-  /* display: flex;
-  flex-direction: column; */
-  /* grid-auto-columns: 1fr; */
-  /* grid-template-columns: 80% 20%;
-  grid-auto-flow: column; */
   max-width: var(--maxWidth);
   justify-content: center;
   align-items: top;

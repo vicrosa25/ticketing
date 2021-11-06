@@ -6,11 +6,12 @@ import {
   JoinColumn,
   OneToOne,
   VersionColumn,
-  Timestamp,
+  CreateDateColumn,
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Ticket } from "./ticket";
 import { OrderStatus } from "@tfg-victor-rosa/common";
+
 
 export { OrderStatus };
 
@@ -28,11 +29,11 @@ export class Order extends BaseEntity {
   @Column()
   expireAt: Date;
 
+  @CreateDateColumn()
+  createAt: Date;
+
   @VersionColumn()
   version: number;
-
-  // @Column()
-  // ticketid: number;
 
   @OneToOne(() => Ticket, {
     nullable: false,

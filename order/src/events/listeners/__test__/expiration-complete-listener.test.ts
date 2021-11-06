@@ -14,6 +14,7 @@ const setup = async () => {
   ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 20;
+  ticket.description = 'description';
   await ticket.save();
 
   const order = new Order();
@@ -37,20 +38,6 @@ const setup = async () => {
   return { listener, order, ticket, data, msg };
 };
 
-// it("updates the order status to cancelled", async () => {
-//   // 1. setup
-//   const { listener, order, data, msg } = await setup();
-
-//   // 2. Call the onMessage function
-//   await listener.onMessage(data, msg);
-
-//   // 3. Fetch the order
-//   const updatedOrder = await Order.findOne(order.id);
-
-//   // 4. Assertions
-//   expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
-// });
-
 it("emits an order cancelled event", async () => {
   // 1. setup
   const { listener, order, data, msg } = await setup();
@@ -66,8 +53,8 @@ it("emits an order cancelled event", async () => {
     (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
   );
 
-  // 4. Assertions
-  expect(eventData.id).toEqual(order.id);
+  // 4. Assertions the orde has been deleted
+  expect(eventData.id).toBeUndefined();
 });
 
 it("acks the message", async () => {

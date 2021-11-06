@@ -31,6 +31,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       userId: ticket.userId,
       title: ticket.title,
       price: ticket.price,
+      description: ticket.description
     });
 
     msg.ack();

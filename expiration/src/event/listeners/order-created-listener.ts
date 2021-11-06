@@ -8,7 +8,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
-    // Calculate the 15 minutes delay
+    // Calculate the 1 minute delay
     const delay = new Date(data.expireAt).getTime() - new Date().getTime();
     console.log("waiting for miliseconds ", delay);
 

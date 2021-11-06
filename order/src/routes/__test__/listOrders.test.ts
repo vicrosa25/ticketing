@@ -7,6 +7,7 @@ const buildTicket = async (id: number) => {
   ticket.id = id;
   ticket.title = "Test";
   ticket.price = 34;
+  ticket.description = 'description';
   await ticket.save();
   return ticket;
 };

@@ -52,6 +52,7 @@ router.put(
       id: ticket.id,
       version: ticket.version,
       title: ticket.title,
+      description: ticket.description,
       price: ticket.price,
       userId: ticket.userId,
       orderId: ticket.orderId,

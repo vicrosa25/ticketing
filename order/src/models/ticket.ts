@@ -5,9 +5,11 @@ import {
   getRepository,
   PrimaryColumn,
   VersionColumn,
+  OneToMany
 } from "typeorm";
 import { classToPlain } from "class-transformer";
 import { Order, OrderStatus } from "./order";
+import { Photo } from './Photo';
 
 @Entity()
 export class Ticket extends BaseEntity {
@@ -20,11 +22,26 @@ export class Ticket extends BaseEntity {
   @Column({ nullable: false, type: "numeric" })
   price: number;
 
+  @Column()
+  description: string;
+
   @VersionColumn()
   version: number;
 
   @Column({ type: "int", nullable: true })
   orderId: number | null;
+
+  @OneToMany(() => Photo, photo => photo.ticket, { cascade: true})
+  photos: Photo[];
+
+
+  addPhoto(photo: Photo) {
+    if(this.photos === undefined) {
+      this.photos = Array<Photo>();
+    }
+    this.photos.push(photo);
+  }
+
 
   toJSON() {
     return classToPlain(this);

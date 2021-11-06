@@ -9,7 +9,7 @@ router.get("/api/orders", requireAuth, async (req: Request, res: Response) => {
     where: {
       userId: req.currentUser!.id,
     },
-    relations: ["ticket"],
+    relations: ["ticket", "ticket.photos"],
   });
 
   res.send(orders);

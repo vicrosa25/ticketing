@@ -31,8 +31,8 @@ router.delete(
       }
 
       // Change the order status
-      order.status = OrderStatus.Cancelled;
-      await order.save();
+      // order.status = OrderStatus.Cancelled;
+      await order.remove();
 
       // Publishing an cancel event
       await new OrderCancelledPublisher(natsWrapper.client).publish({

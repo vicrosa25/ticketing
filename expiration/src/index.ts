@@ -1,4 +1,5 @@
 import { OrderCreatedListener } from "./event/listeners/order-created-listener";
+import { OrderCancelledListener } from "./event/listeners/order-cancelled-listener";
 import { natsWrapper } from "./nat-wrapper";
 
 // Start the Server and the Mongo Database
@@ -32,6 +33,7 @@ const start = async () => {
 
     // Start to listen
     new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
   } catch (error) {
     console.log(error);
   }

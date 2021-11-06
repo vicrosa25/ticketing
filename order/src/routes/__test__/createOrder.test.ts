@@ -19,6 +19,7 @@ it("returns a 400 error if the ticket is already reserved", async () => {
   ticket.id = 1;
   ticket.title = "Test ticket";
   ticket.price = 12;
+  ticket.description = 'description';
   await ticket.save();
 
   const order = new Order();
@@ -42,6 +43,7 @@ it("reserves a ticket", async () => {
   ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 20;
+  ticket.description = 'description';
   await ticket.save();
 
   // Request, create an order on a free ticket
@@ -58,6 +60,7 @@ it("emits an order create event", async () => {
   ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 20;
+  ticket.description = 'description';
   await ticket.save();
 
   // Request, create an order on a free ticket

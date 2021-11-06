@@ -15,12 +15,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
     // 1. Fetch the order
-    const order = await Order.findOne({
-      where: {
-        id: data.orderId,
-      },
-      relations: ["ticket"],
-    });
+    const order = await Order.findOne(data.orderId, {relations: ['ticket']});
     // const order = await Order.findOne(data.orderId);
 
     if (!order) {
@@ -35,7 +30,8 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
     // 3. Update and save the order with cancelled status
     // order.status = OrderStatus.Cancelled;
     // await order.save();
-    await Order.delete(order)
+   
+    await order.remove()
 
     // 4. Publish an Order Cancelled Event
     await new OrderCancelledPublisher(this.client).publish({
@@ -45,7 +41,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
         id: order.ticket.id
       },
     });
-
+    
     // 5. Ack the message
     msg.ack();
   }

@@ -2,7 +2,6 @@ import request from "supertest";
 import { app } from "../../app";
 import { Order } from "../../models/order";
 import { Ticket } from "../../models/ticket";
-import { OrderStatus } from "@tfg-victor-rosa/common";
 import { natsWrapper } from "../../nat-wrapper";
 
 it("Cancels an order", async () => {
@@ -11,6 +10,7 @@ it("Cancels an order", async () => {
   ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 45;
+  ticket.description = 'description';
   await ticket.save();
 
   const user = global.signin();
@@ -28,10 +28,10 @@ it("Cancels an order", async () => {
     .send()
     .expect(204);
 
-  // 4. Get the canceled order from the database
+  // 4. Get the canceled order from the database it must be undefined
   const cancelledOrder = await Order.findOne(order.id);
 
-  expect(cancelledOrder!.status).toEqual(OrderStatus.Cancelled);
+  expect(cancelledOrder).toBeUndefined();
 });
 
 it("emits an order cancelled event", async () => {
@@ -40,6 +40,7 @@ it("emits an order cancelled event", async () => {
   ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 45;
+  ticket.description = 'description';
   await ticket.save();
 
   const user = global.signin();

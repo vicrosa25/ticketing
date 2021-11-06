@@ -13,6 +13,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@bull-board/express": "^3.7.0",
     "@tfg-victor-rosa/common": "^1.0.32",
     "@types/node": "15.12.2",
     "node-nats-streaming": "^0.3.2"

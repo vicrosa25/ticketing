@@ -15,6 +15,8 @@ const setup = async () => {
     title: "concert",
     price: 20,
     userId: 1,
+    description: "description",
+    photos: []
   };
   // 3. Create a fake message object
   // @ts-ignore

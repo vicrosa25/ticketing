@@ -24,8 +24,6 @@ const setup = async () => {
   ticket.photos = images;
   await ticket.save();
 
-  await ticket.save();
-
   // 3. Create a fake data
   const data: OrderCancelledEvent["data"] = {
     id: 1,

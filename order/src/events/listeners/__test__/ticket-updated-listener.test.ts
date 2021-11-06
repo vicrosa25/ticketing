@@ -12,6 +12,7 @@ const setup = async () => {
   ticket.id = 1;
   ticket.title = "concert";
   ticket.price = 50;
+  ticket.description = 'description';
   await ticket.save();
 
   // 3. Create a fake data object
@@ -21,6 +22,7 @@ const setup = async () => {
     title: "new concert",
     price: 999,
     userId: 1,
+    description: 'description',
     orderId: null,
   };
 

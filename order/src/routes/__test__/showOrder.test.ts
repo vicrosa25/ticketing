@@ -8,6 +8,7 @@ it("fetches the order", async () => {
   ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 43;
+  ticket.description = 'description';
   await ticket.save();
 
   // 2. Create an order with this ticket
@@ -35,6 +36,7 @@ it("return 401 error when a user try to see an order from other user", async () 
   ticket.id = 1;
   ticket.title = "Test";
   ticket.price = 43;
+  ticket.description = 'description';
   await ticket.save();
 
   // 2. Create an order with this ticket

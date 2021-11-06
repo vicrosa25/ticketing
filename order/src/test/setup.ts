@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { Order } from "../models/order";
 import { Ticket } from "../models/ticket";
 import { OccSubscriber } from "../subscriber/occSubs";
+import { Photo } from "../models/Photo";
 
 declare global {
   namespace NodeJS {
@@ -32,7 +33,7 @@ beforeAll(async () => {
   //==== create a Typeorm connection
   orm = await db.adapters.createTypeormConnection({
     type: "postgres",
-    entities: [Order, Ticket],
+    entities: [Order, Ticket, Photo],
     subscribers: [OccSubscriber],
   });
 

@@ -6,13 +6,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
   const router = useRouter();
 
   useEffect(() => currentUser(), []);
 
   // Sign UP
-  const signUp = async (user) => {
+  const signUp = async (user, onSuccess) => {
     const { email, password } = user;
     try {
       const { data } = await axios.post("/api/users/signup", {
@@ -20,31 +20,38 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       setUser(data);
-      router.push("/");
+      if (onSuccess) {
+        onSuccess(data);
+      }
     } catch (error) {
-      setError(error);
+      setErrors(error.response.data.errors);
     }
   };
 
   // Sign In
-  const signIn = async ({ email, password }) => {
+  const signIn = async ({ email, password }, onSuccess) => {
     try {
       const { data } = await axios.post("/api/users/signin", {
         email,
         password,
       });
       setUser(data);
-      router.push("/");
+      if (onSuccess) {
+        onSuccess(data);
+      }
     } catch (error) {
-      setError(error);
+      setErrors(error.response.data.errors);
     }
   };
 
   // Sign Out
-  const signOut = async () => {
+  const signOut = async (onSuccess) => {
     await axios.post("/api/users/signout");
     setUser(null);
-    router.push("/");
+    if (onSuccess) {
+      onSuccess();
+    }
+    // router.push("/");
   };
 
   // Current User
@@ -52,11 +59,15 @@ export const AuthProvider = ({ children }) => {
     const { data } = await axios("/api/users/currentuser");
     setUser(data.currentUser);
     try {
-    } catch (error) {}
+    } catch (error) {
+      setErrors(error.response.data.errors);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{ user, errors, setErrors, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

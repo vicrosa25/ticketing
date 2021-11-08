@@ -10,7 +10,7 @@ export default function Header() {
   const links = [
     !user && {
       label: "Sign in",
-      href: "/auth/signin",
+      href: "/auth/signup",
     },
     user && { label: "Messages", href: "/messages/dashboard" },
     user && { label: "Sell", href: "/ticket/createTicket" },

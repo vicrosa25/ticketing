@@ -1,60 +1,108 @@
-import { useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import Router from "next/router";
-import Link from "next/link";
 import styled from "styled-components";
-import useForm from "../hooks/useForm";
-import DisplayError from "../components/DisplayError";
 import Modal from "../components/Modal";
 import LogingForm from "./styles/LoginForm";
 
 export default function SignIn() {
-  // Hooks
-  const { inputs, handleChange, resetForm } = useForm({
-    email: "",
-    password: "",
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignIn, setSignIn] = useState(true);
+  const { signUp, signIn, errors, setErrors } = useContext(AuthContext);
+
+  useEffect(() => {
+    let loginErrors = null;
+    if (errors) {
+      loginErrors = errors;
+      loginErrors.forEach((error) => toast.error(error.message));
+    }
+    return () => {
+      setErrors(null);
+    };
   });
 
-  const { email, password } = inputs;
-
-  const { signUp, error } = useContext(AuthContext);
-
-  const handleSubmit = async (event) => {
+  const handleSignUpSubmit = async (event) => {
     event.preventDefault();
-    signUp({ email, password });
-    resetForm();
+    try {
+      await signUp({ email, password }, () => {
+        toast.success("Your account has been created !!!");
+        setTimeout(() => {
+          Router.push("/");
+        }, 1000);
+      });
+    } catch (error) {}
+  };
+
+  const handleSignInSubmit = async (event) => {
+    event.preventDefault();
+    await signIn({ email, password }, () => {
+      toast.success("Your are now login");
+      setTimeout(() => {
+        Router.push("/");
+      }, 1000);
+    });
   };
 
   return (
     <Modal show={true} onClose={() => Router.push("/")}>
-      <LogingForm method="POST" onSubmit={handleSubmit}>
-        <DisplayError error={error} />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email Address"
-          autoComplete="email"
-          value={inputs.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          autoComplete="password"
-          value={inputs.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Sign In!</button>
-        <Text>
-          <div>
-            <span>DO YOU HAVE AN ACCOUNT?</span>
-          </div>
-          <Link href={"/auth/signin"}>
-            <a>LOG IN</a>
-          </Link>
-        </Text>
-      </LogingForm>
+      <ToastContainer />
+      {isSignIn && (
+        <LogingForm method="POST" onSubmit={handleSignInSubmit}>
+          <input
+            type="text"
+            name="email"
+            placeholder="Your Email Address"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign In</button>
+        </LogingForm>
+      )}
+      {!isSignIn && (
+        <LogingForm method="POST" onSubmit={handleSignUpSubmit}>
+          <input
+            type="text"
+            name="email"
+            placeholder="Your Email Address"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
+        </LogingForm>
+      )}
+      <Text>
+        <div>
+          <span>
+            {isSignIn
+              ? "DON'T HAVE AN ACCOUNT?  "
+              : "DO YOU HAVE AN ACCOUNT?  "}
+          </span>
+          <LoginButton onClick={() => setSignIn(!isSignIn)}>
+            {isSignIn ? "Sign Up" : "Sign In"}
+          </LoginButton>
+        </div>
+      </Text>
     </Modal>
   );
 }
@@ -62,5 +110,13 @@ export default function SignIn() {
 const Text = styled.div`
   display: flex;
   margin: 1rem;
-  justify-content: space-space-between;
+  justify-content: space-between;
+`;
+
+const LoginButton = styled.button`
+  background: none;
+  border: none;
+  margin: 0;
+  padding-left: 10px;
+  cursor: pointer;
 `;

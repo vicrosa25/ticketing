@@ -2,11 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 
 const useRequest = ({ url, method, body, onSuccess }) => {
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const doRequest = async (props = {}) => {
     try {
-      setError(null);
+      setErrors(null);
       const response = await axios[method](url, {
         ...body,
         ...props,
@@ -16,11 +16,11 @@ const useRequest = ({ url, method, body, onSuccess }) => {
       }
       return response.data;
     } catch (error) {
-      setError(error);
+      setErrors(error.response.data.errors);
     }
   };
 
-  return { doRequest, error };
+  return { doRequest, errors, setErrors };
 };
 
 export default useRequest;

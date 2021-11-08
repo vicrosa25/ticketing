@@ -22,13 +22,16 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     signIn({ email, password });
+    if (error) {
+      console.log(error);
+    }
     resetForm();
   };
 
   return (
     <Modal show={true} onClose={() => Router.push("/")}>
       <LogingForm method="POST" onSubmit={handleSubmit}>
-        <DisplayError error={error} />
+        {/* <DisplayError error={error} /> */}
         <input
           type="email"
           name="email"
